@@ -5,4 +5,5 @@
 <svelte:head>
 	<title>Página de inicio</title>
 </svelte:head>
+
 <HomeSection />

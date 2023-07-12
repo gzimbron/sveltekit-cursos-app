@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Página de inicio</title>
+	<title>Random Number</title>
 </svelte:head>
 
 <RandomNumberSection />

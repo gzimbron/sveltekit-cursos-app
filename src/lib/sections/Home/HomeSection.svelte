@@ -29,7 +29,8 @@
 		</ul>
 
 		<div class="text-right">
-			<a href="/peliculas" class="btn variant-filled-primary">Ir a Peliculas</a>
+			<a href="/random-number" class="btn variant-filled-primary">Random Number</a>
+			<a href="/peliculas" class="btn variant-filled-primary">Peliculas</a>
 		</div>
 	</div>
 </section>

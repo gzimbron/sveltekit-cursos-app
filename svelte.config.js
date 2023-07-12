@@ -22,7 +22,6 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			'$core/*': './src/core/*',
-			'$modules/*': './src/modules/*',
 			'$sections/*': './src/lib/sections/*',
 			'$components/*': './src/lib/components/*'
 		}

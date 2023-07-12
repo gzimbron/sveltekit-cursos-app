@@ -4,7 +4,7 @@
 	import { AppBar } from '@skeletonlabs/skeleton';
 	import MovieItem from './_/MovieItem.svelte';
 
-	/**  @type {import('$modules/movies/domain/Pelicula').default[]} */
+	/**  @type {import('$core/entities/Pelicula').default[]} */
 	export let peliculas = [];
 
 	export let total_pages = 0;

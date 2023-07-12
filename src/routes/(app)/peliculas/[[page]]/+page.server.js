@@ -8,7 +8,7 @@ export async function load({ params, fetch }) {
 
 	const { results, total_pages, total_results } = await res.json();
 
-	/**  @type {import('$modules/movies/domain/Pelicula').default[]} */
+	/**  @type {import('$core/entities/Pelicula').default[]} */
 	const peliculas = results.map((item) => ({
 		id: item.id,
 		title: item.title,

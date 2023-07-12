@@ -1,5 +1,5 @@
 <script>
-	/**  @type {import('$modules/movies/domain/Pelicula').default} */
+	/**  @type {import('$core/entities/Pelicula').default} */
 	export let pelicula;
 
 	const dateParser = Intl.DateTimeFormat('es-MX', {

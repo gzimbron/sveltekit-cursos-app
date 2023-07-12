@@ -27,7 +27,7 @@
 <section>
 	<div class="contenedor">
 		<h1 class="h1">Random Number</h1>
-		<p class="code">src/lib/sections/Home/HomeSection.svelte</p>
+		<p class="code">src/lib/sections/RandomNumber/RandomNumberSection.svelte</p>
 		<p>Esta sección demuestra como hacer un fetch dentro de un componente a una api.</p>
 
 		<div class="text-center">

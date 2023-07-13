@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Página de inicio</title>
+	<title>Página de inicio :)</title>
 </svelte:head>
 
 <HomeSection />

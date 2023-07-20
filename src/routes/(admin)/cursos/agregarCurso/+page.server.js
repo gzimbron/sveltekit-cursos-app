@@ -5,23 +5,24 @@ export const actions = {
     default: async ({request}) => {
         const data = await request.formData();
         const name = data.get('nombre');
-        const email = data.get('email');
-        const provider = data.get('provider');
-        const password = data.get('password');
+        const descripcion = data.get('descripcion');
+        const activo = data.get('estado');
+        const imagenURL = data.get('imagenURL');
+        const cursoURL = data.get('cursoURL');
 
         console.log(data);
         const json = {
             "data":{
                 "nombre": name,
-                "email": email,
-                "provider": provider,
-                "password": password,
-                "role": 1
+                "descripcion": descripcion,
+                "activo": activo,
+                "imagenURL": imagenURL,
+                "cursoURL": cursoURL
             }
         }
 
         const req = {
-            endPoint: "usuarios",
+            endPoint: "cursos",
             method: "POST",
             body: json,
         }

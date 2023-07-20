@@ -1,10 +1,21 @@
 <script>
+	import { createEventDispatcher } from "svelte";
 
 	import UsuarioItem from "./_/UsuarioItem.svelte";
+    let alert = false;
+    const dispatch = createEventDispatcher();
 
 
     /**  @type {import('$core/entities/Usuario').default[]} */
     export let usuarios = [];
+
+    function handleEliminar(e){
+
+        usuarios = usuarios.filter(item => {
+            return item.id != e.detail.id;
+        })
+
+    }
     
 </script>
 
@@ -22,14 +33,15 @@
         </thead>
         <tbody>
             
-            {#each usuarios as usuario}
-                <UsuarioItem usuario={usuario} />
-            {/each}
+            {#key usuarios}
+                {#each usuarios as usuario}
+                    <UsuarioItem usuario={usuario} on:eliminarUsuario={handleEliminar}/>
+                {/each}
+            {/key}
+            
 
         </tbody>
     </table>
-
-    
 
 </div>
 

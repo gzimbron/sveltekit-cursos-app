@@ -29,8 +29,8 @@
 		</ul>
 
 		<div class="text-right">
-			<a href="/random-number" class="btn variant-filled-primary">Random Number</a>
-			<a href="/peliculas" class="btn variant-filled-primary">Peliculas</a>
+			<a href="/adminSection" class="btn variant-filled-primary">Sección administrador</a>
+			<a href="/seccion-usuario" class="btn variant-filled-primary">Sección usuario</a>
 		</div>
 	</div>
 </section>

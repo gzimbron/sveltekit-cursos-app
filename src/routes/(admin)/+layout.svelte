@@ -1,35 +1,33 @@
 <script>
-
-    import { AppRail, AppRailTile, AppRailAnchor, AppShell } from '@skeletonlabs/skeleton';
-    import { page} from '$app/stores';
-
+	import { page } from '$app/stores';
+	import { AppRail, AppRailAnchor, AppShell } from '@skeletonlabs/skeleton';
 </script>
-
 
 <AppShell>
 	<!--<svelte:fragment slot="header">Header</svelte:fragment>-->
 	<svelte:fragment slot="sidebarLeft">
-        <AppRail>
-            <svelte:fragment slot="lead">
-                <AppRailAnchor href="/" selected={$page.url.pathname === '/'}>Inicio</AppRailAnchor>
-            </svelte:fragment>
-            <!-- --- -->
-            <AppRailAnchor href="/usuarios" selected={$page.url.pathname === '/usuarios'}>
-                <svelte:fragment slot="lead">Usuarios</svelte:fragment>
-            </AppRailAnchor>
-            <AppRailAnchor href="/cursos" selected={$page.url.pathname === '/cursos'}>
-                <svelte:fragment slot="lead">Cursos</svelte:fragment>
-            </AppRailAnchor>
-            <AppRailAnchor href="/rutas" selected={$page.url.pathname === '/rutas'}>
-                <svelte:fragment slot="lead">Rutas</svelte:fragment>
-            </AppRailAnchor>
-            <!-- --- -->
-            <!--<svelte:fragment slot="trail">
+		<AppRail>
+			<svelte:fragment slot="lead">
+				<AppRailAnchor href="/admin" selected={$page.url.pathname === '/admin'}
+					>Inicio</AppRailAnchor
+				>
+			</svelte:fragment>
+			<!-- --- -->
+			<AppRailAnchor href="/admin/usuarios" selected={$page.url.pathname === '/admin/usuarios'}>
+				<svelte:fragment slot="lead">Usuarios</svelte:fragment>
+			</AppRailAnchor>
+			<AppRailAnchor href="/admin/cursos" selected={$page.url.pathname === '/admin/cursos'}>
+				<svelte:fragment slot="lead">Cursos</svelte:fragment>
+			</AppRailAnchor>
+			<AppRailAnchor href="/admin/rutas" selected={$page.url.pathname === '/admin/rutas'}>
+				<svelte:fragment slot="lead">Rutas</svelte:fragment>
+			</AppRailAnchor>
+			<!-- --- -->
+			<!--<svelte:fragment slot="trail">
                 <AppRailAnchor href="/" target="_blank" title="Account">(icon)</AppRailAnchor>
             </svelte:fragment> -->
-        
-        </AppRail>
-    </svelte:fragment>
+		</AppRail>
+	</svelte:fragment>
 	<!-- (sidebarRight) -->
 	<!-- (pageHeader) -->
 	<!-- Router Slot -->
@@ -62,9 +60,7 @@
 </AppRail>-->
 
 <style lang="postcss">
-
-    .botones{
-        @apply mt-9
-    }
-    
+	.botones {
+		@apply mt-9;
+	}
 </style>

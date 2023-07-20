@@ -9,8 +9,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"test:unit": "vitest",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"lint": "prettier --plugin-search-dir ./src --check ./src && eslint ./src",
+		"format": "prettier --plugin-search-dir ./src --write ./src"
 	},
 	"devDependencies": {
 		"@floating-ui/dom": "^1.4.4",

@@ -9,4 +9,3 @@ export async function GET() {
 
 	return json({ randomNumber });
 }
-

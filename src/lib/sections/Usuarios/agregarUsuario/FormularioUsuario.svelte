@@ -5,7 +5,7 @@
 </script>
 
 
-<form method="POST" action="/usuarios/agregarUsuario" class="w-fit mx-auto">
+<form method="POST" action="/admin/usuarios/agregarUsuario" class="w-fit mx-auto">
     
     <label for="nombre">Nombre del usuario: <input type="text" id="nombre" name="nombre" required/></label>
 

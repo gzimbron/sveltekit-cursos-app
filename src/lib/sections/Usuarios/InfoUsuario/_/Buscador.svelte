@@ -1,0 +1,73 @@
+<script>
+
+    export let idUsuario;
+    let resultados;
+    let cursos = [];
+
+async function handleInput(e){
+        const resultadosBusqueda = document.getElementById("cursos")
+        resultadosBusqueda.innerHTML = "";
+        const nombreCurso = e.target.value;
+
+        resultados = await fetch('/api/buscarCursos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombreCurso: nombreCurso
+            })
+            
+        })
+        .then(res => res.json())
+        .then(res => {
+            res.data.forEach(elemento => {
+                const opcion = document.createElement("option");
+                opcion.value = elemento.attributes.nombre;
+                resultadosBusqueda.appendChild(opcion);
+            });
+
+            cursos = res.data;
+
+        })
+
+    }
+
+    async function agregarCurso() {
+        const curso = cursos[0].id;
+
+        await fetch("/api/agregarUsuarioCurso", {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({idUsuario: idUsuario, idCurso: curso})
+        });
+
+        location.reload();
+            
+    }
+
+</script>
+
+
+<div class="bg-blue-400 w-fit mx-auto my-5 py-7 px-20 rounded-lg">
+
+    <form action="">
+
+        <div id="buscador" class="w-fit mx-auto">
+            <label for="busquedaCursos" class="mb-5 text-black">Agregar cursos: 
+                <input list="cursos"
+                id="busquedaCursos" 
+                placeholder="Buscar un curso..." 
+                on:input={handleInput} class="text-black"/>
+                <datalist id="cursos">
+                    
+                </datalist>
+            </label>
+
+            <button on:click={agregarCurso} class="btn variant-filled-secondary block w-fit mx-auto ">Agregar curso</button>
+
+        </div>
+
+    </form>
+
+</div>

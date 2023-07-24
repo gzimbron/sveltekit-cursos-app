@@ -33,10 +33,10 @@
 
 <tr class="">
     
-    <td>{usuario.id}</td>
-    <td>{usuario.name}</td>
-    <td>{usuario.email}</td>
-    <td>{usuario.provider}</td>
+    <td><a href={`/admin/usuarios/usuario/${usuario.id}`}>{usuario.id}</a></td>
+    <td><a href={`/admin/usuarios/usuario/${usuario.id}`}>{usuario.name}</a></td>
+    <td><a href={`/admin/usuarios/usuario/${usuario.id}`}>{usuario.email}</a></td>
+    <td><a href={`/admin/usuarios/usuario/${usuario.id}`}>{usuario.provider}</a></td>
     <td><button class="bg-red-700 p-1" on:click={()=>{handleClick(usuario.id)}}>Eliminar</button></td>
 
 </tr>

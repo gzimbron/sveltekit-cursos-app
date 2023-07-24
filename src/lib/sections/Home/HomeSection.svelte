@@ -29,7 +29,7 @@
 		</ul>
 
 		<div class="text-right">
-			<a href="/adminSection" class="btn variant-filled-primary">Sección administrador</a>
+			<a href="/admin" class="btn variant-filled-primary">Sección administrador</a>
 			<a href="/seccion-usuario" class="btn variant-filled-primary">Sección usuario</a>
 		</div>
 	</div>

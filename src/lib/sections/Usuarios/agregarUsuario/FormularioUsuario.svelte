@@ -1,11 +1,24 @@
 <script>
+import { enhance } from '$app/forms';
+import Alerta from '$core/classes/Alerta';
+ 
 
-
-
+const formSubmitted = async () => {
+    return async ({ result }) => {
+        if(result.type === "success"){
+            Alerta.success("¡Usuario agregado con éxito!");
+        }else{
+            Alerta.error(result.error.message, {
+                title: "Error al agregar usuario"
+            });
+        }
+    };
+}
 </script>
 
+ 
 
-<form method="POST" action="/admin/usuarios/agregarUsuario" class="w-fit mx-auto">
+<form method="POST" action="/admin/usuarios/agregarUsuario" class="w-fit mx-auto" use:enhance={formSubmitted}>
     
     <label for="nombre">Nombre del usuario: <input type="text" id="nombre" name="nombre" required/></label>
 

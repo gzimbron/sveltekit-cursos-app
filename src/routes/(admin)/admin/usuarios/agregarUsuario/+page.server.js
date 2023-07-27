@@ -10,7 +10,7 @@ export const actions = {
 		const provider = data.get('provider');
 		const password = data.get('password');
 
-		if(!name){
+		if(!name){ 
 			throw error(401, "Debes ingresar un nombre.") 
 		}
 
@@ -26,6 +26,21 @@ export const actions = {
 			throw error(401, "Debes agregar un  provider")
 		}
 
+
+		//TODO: investigar como pasar un objeto a url params
+
+			/* const filters = {
+				email: { $eq : email}
+			}; */
+ 
+			const verificarUsuario = await apiFetch({
+				endPoint: `usuarios?filters=[email][$eq]=${email}`,
+				method: 'GET',
+			}); 
+ 
+			if(verificarUsuario.data.length){
+				throw error(402, "El correo ya está registrado.")
+			}
  
 		const json = {
 			data: {
@@ -49,7 +64,6 @@ export const actions = {
 			return { id: data.id};
 			
 		} catch (e) {
-			console.error(e);
 			throw error(500, e?.message || 'Error desconocido')
 		} 
 	}

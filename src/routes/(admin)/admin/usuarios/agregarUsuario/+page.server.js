@@ -1,4 +1,5 @@
 import { apiFetch } from '$core/functions/apiFetch';
+import { error } from '@sveltejs/kit'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -9,7 +10,23 @@ export const actions = {
 		const provider = data.get('provider');
 		const password = data.get('password');
 
-		console.log(data);
+		if(!name){
+			throw error(401, "Debes ingresar un nombre.") 
+		}
+
+		if(!email){
+			throw error(401, "Debes ingresar un email.") 
+		}
+
+		if(!password){
+			throw error(401, "Debes ingresar una contraseña.") 
+		} 
+
+		if(!provider){
+			throw error(401, "Debes agregar un  provider")
+		}
+
+ 
 		const json = {
 			data: {
 				nombre: name,
@@ -26,6 +43,14 @@ export const actions = {
 			body: json
 		};
 
-		const result = await apiFetch(req);
+		try {
+			const {data} = await apiFetch(req);
+
+			return { id: data.id};
+			
+		} catch (e) {
+			console.error(e);
+			throw error(500, e?.message || 'Error desconocido')
+		} 
 	}
 };

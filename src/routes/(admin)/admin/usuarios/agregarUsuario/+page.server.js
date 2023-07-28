@@ -34,7 +34,7 @@ export const actions = {
 			}; */
  
 			const verificarUsuario = await apiFetch({
-				endPoint: `usuarios?filters=[email][$eq]=${email}`,
+				endPoint: `usuarios?filters[email][$eq]=${email}`,
 				method: 'GET',
 			}); 
  

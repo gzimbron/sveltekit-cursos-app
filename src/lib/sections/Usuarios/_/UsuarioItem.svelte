@@ -8,16 +8,7 @@
 
     async function handleClick(id){
 
-        const confirmacion = window.confirm('¿Eliminar este usuario?');
-        if(confirmacion){
-            
-            const response = await fetch('/api/eliminarUsuario', {
-                method: 'POST',
-                body: JSON.stringify(id),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+        
 
             dispatch('eliminarUsuario', {
                 id: id
@@ -25,7 +16,7 @@
             
         }
 
-    }
+    //}
 
 </script>
 

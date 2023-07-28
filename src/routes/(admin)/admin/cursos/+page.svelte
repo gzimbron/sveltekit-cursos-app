@@ -1,20 +1,8 @@
 <script >
 
-    import { toastStore } from "@skeletonlabs/skeleton";
-    //import type { ToastSettings } from '@skeletonlabs/skeleton';
 	import SeccionCursos from "$sections/Cursos/SeccionCursos.svelte";
 
-
     export let data;
-
-    function triggerToast(){
-
-        /**import("@skeletonlabs/skeleton").ToastSettings*/
-        const t ={
-            message: "hola",
-        };
-        toastStore.trigger(t);
-    }
 
 </script>
 
@@ -30,7 +18,6 @@
     <SeccionCursos cursos={data.cursos}/>
 </main>
 
-<button on:click={triggerToast}>Yeah</button>
 
 <style lang="postcss">
 

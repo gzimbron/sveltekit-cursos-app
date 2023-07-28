@@ -1,15 +1,23 @@
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
+	
 	const id = await request.json();
 	const req = {
 		endPoint: `usuarios/${id}`,
 		method: 'DELETE'
 	};
+	let result;
 
-	const result = await apiFetch(req);
+	try{
+		result = await apiFetch(req);	
+		return json(result);
+	}
 
-	return json(result);
+	catch{
+		throw error(500, "Hubo un error en el servidor.")
+	}
+
 }

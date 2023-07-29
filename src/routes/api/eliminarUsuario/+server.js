@@ -3,7 +3,6 @@ import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-	
 	const id = await request.json();
 	const req = {
 		endPoint: `usuarios/${id}`,
@@ -11,13 +10,10 @@ export async function POST({ request }) {
 	};
 	let result;
 
-	try{
-		result = await apiFetch(req);	
+	try {
+		result = await apiFetch(req);
 		return json(result);
+	} catch {
+		throw error(500, 'Hubo un error en el servidor.');
 	}
-
-	catch{
-		throw error(500, "Hubo un error en el servidor.")
-	}
-
 }

@@ -7,11 +7,11 @@ export async function POST({ request }) {
 	const req = {
 		endPoint: `usuario-cursos/${id}`,
 		method: 'PUT',
-        body: {
-            "data": {
-                "terminado": true
-            }
-        }
+		body: {
+			data: {
+				terminado: true
+			}
+		}
 	};
 
 	const result = await apiFetch(req);

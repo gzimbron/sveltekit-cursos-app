@@ -1,5 +1,5 @@
 import { apiFetch } from '$core/functions/apiFetch';
-import { error } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -10,38 +10,37 @@ export const actions = {
 		const provider = data.get('provider');
 		const password = data.get('password');
 
-		if(!name){ 
-			throw error(401, "Debes ingresar un nombre.") 
+		if (!name) {
+			throw error(401, 'Debes ingresar un nombre.');
 		}
 
-		if(!email){
-			throw error(401, "Debes ingresar un email.") 
+		if (!email) {
+			throw error(401, 'Debes ingresar un email.');
 		}
 
-		if(!password){
-			throw error(401, "Debes ingresar una contraseña.") 
-		} 
-
-		if(!provider){
-			throw error(401, "Debes agregar un  provider")
+		if (!password) {
+			throw error(401, 'Debes ingresar una contraseña.');
 		}
 
+		if (!provider) {
+			throw error(401, 'Debes agregar un  provider');
+		}
 
 		//TODO: investigar como pasar un objeto a url params
 
-			/* const filters = {
+		/* const filters = {
 				email: { $eq : email}
 			}; */
- 
-			const verificarUsuario = await apiFetch({
-				endPoint: `usuarios?filters[email][$eq]=${email}`,
-				method: 'GET',
-			});  
- 
-			if(verificarUsuario.data.length){
-				throw error(402, "El correo ya está registrado.")
-			}
- 
+
+		const verificarUsuario = await apiFetch({
+			endPoint: `usuarios?filters[email][$eq]=${email}`,
+			method: 'GET'
+		});
+
+		if (verificarUsuario.data.length) {
+			throw error(402, 'El correo ya está registrado.');
+		}
+
 		const json = {
 			data: {
 				nombre: name,
@@ -59,12 +58,11 @@ export const actions = {
 		};
 
 		try {
-			const {data} = await apiFetch(req);
+			const { data } = await apiFetch(req);
 
-			return { id: data.id};
-			
+			return { id: data.id };
 		} catch (e) {
-			throw error(500, e?.message || 'Error desconocido')
-		} 
+			throw error(500, e?.message || 'Error desconocido');
+		}
 	}
 };

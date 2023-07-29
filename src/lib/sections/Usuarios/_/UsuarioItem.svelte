@@ -8,15 +8,11 @@
 
     async function handleClick(id){
 
-        
-
-            dispatch('eliminarUsuario', {
-                id: id
-            });
+        dispatch('eliminarUsuario', {
+            id: id
+        });
             
-        }
-
-    //}
+    }
 
 </script>
 
@@ -32,7 +28,7 @@
 
 </tr>
 
-<style lang="postcss">
+<style lang="postcss"> 
 
     td{
         @apply text-center py-3

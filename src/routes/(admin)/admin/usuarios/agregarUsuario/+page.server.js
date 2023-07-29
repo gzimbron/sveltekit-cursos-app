@@ -36,7 +36,7 @@ export const actions = {
 			const verificarUsuario = await apiFetch({
 				endPoint: `usuarios?filters[email][$eq]=${email}`,
 				method: 'GET',
-			}); 
+			});  
  
 			if(verificarUsuario.data.length){
 				throw error(402, "El correo ya está registrado.")

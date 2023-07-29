@@ -8,21 +8,9 @@
 
     async function handleClick(id){
 
-        const confirmacion = window.confirm('¿Desea eliminar esta ruta?');
-        
-        if(confirmacion){
-            const response = await fetch("/api/eliminarRuta", {
-                method: 'POST',
-                body: JSON.stringify(id),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            dispatch('eliminarRuta', {
-                id: id
-            })
-        }
+        dispatch('eliminarRuta', {
+            id: id
+        })
 
     }
 

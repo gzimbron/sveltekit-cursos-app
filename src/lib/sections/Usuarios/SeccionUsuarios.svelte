@@ -32,14 +32,15 @@
 
         if(response.ok){
             Alerta.success("¡Usuario eliminado con éxito!");
+            usuarios = usuarios.filter(item => {
+                return item.id != idEliminar;
+            })
         } else{
             console.log(response)
             Alerta.error("Hubo un error al eliminar el usuario.")
         }
         
-        usuarios = usuarios.filter(item => {
-            return item.id != idEliminar;
-        })
+        
     }
 
     function cancelar(){

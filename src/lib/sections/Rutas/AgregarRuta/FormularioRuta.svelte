@@ -1,5 +1,5 @@
 <script>
-
+	import Alerta from "$core/classes/Alerta";
 	import RutaCard from "../_/RutaCard.svelte";
 
 
@@ -51,7 +51,7 @@
     async function agregarRuta(e){
 
         if(cursosAgregados.length == 0){
-            console.log("Agregue cursos a la ruta");
+            Alerta.error("Agregue cursos a la ruta.")
             return;
         }
         
@@ -79,7 +79,7 @@
             }
         }
 
-        await fetch('/api/agregarRuta',{
+        const response = await fetch('/api/agregarRuta',{
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -87,7 +87,14 @@
                 body: JSON.stringify(jsonRequest)
         })
 
-        location.reload();
+        if(response.ok){
+            Alerta.success("¡Se ha agregado la ruta!")
+            document.getElementById("nuevo-curso").reset();
+        } else{
+            Alerta.error(
+                "Hubo un error al agregar la ruta.")
+        }
+        
     }
 
 </script>

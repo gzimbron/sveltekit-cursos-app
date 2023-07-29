@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from 'svelte';
+    import { fade } from "svelte/transition"
 
     export let mensaje;
 
@@ -15,7 +16,8 @@
 
 </script>
 
-<aside class="alert variant-filled-warning w-modal mx-auto my-5">
+<aside class="alert variant-filled-warning w-modal mx-auto my-5" 
+transition:fade|local={{duration: 200}}>
 
     <div class="alert-message">
         <h3 class="h3">Alerta</h3>

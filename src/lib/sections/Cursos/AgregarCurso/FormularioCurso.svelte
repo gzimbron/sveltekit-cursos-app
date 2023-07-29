@@ -1,11 +1,25 @@
 <script>
+	import { enhance } from '$app/forms';
+	import Alerta from '$core/classes/Alerta';
+ 
+    const formSubmitted = async () => {
+    return async ({ result }) => {
+        if(result.type === "success"){
+            Alerta.success("¡Curso agregado con éxito!");
+            document.getElementById("nuevo-curso").reset();
+        }else{
+            Alerta.error(result.error.message, {
+                title: "Error al agregar curso"
+            });
+        }
+    };
 
-
+}
 
 </script>
 
 
-<form method="POST" action="/cursos/agregarCurso" class="w-fit mx-auto">
+<form method="POST" action="/admin/cursos/agregarCurso" id="nuevo-curso" class="w-fit mx-auto" use:enhance={formSubmitted}>
     
     <label for="nombre">Nombre del curso: <input type="text" id="nombre" name="nombre" required/></label>
 
@@ -21,7 +35,7 @@
 
     <label for="curso">URL del curso: <input type="text" id="curso" name="cursoURL" required/></label>
 
-    <button class="btn block my-5 mx-auto bg-yellow-400 text-black">Agregar usuario</button>
+    <button class="btn block my-5 mx-auto bg-yellow-400 text-black">Agregar curso</button>
 
 </form>
 

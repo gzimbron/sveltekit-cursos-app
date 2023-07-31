@@ -7,15 +7,15 @@ export async function POST({ request }) {
 	const { data } = body;
 
 	if (data.nombre === '') {
-		return new Response(JSON.stringify({code: 402, message: "Debe ingresar un nombre."}))
+		return new Response(JSON.stringify({ code: 402, message: 'Debe ingresar un nombre.' }));
 		//throw error(401, 'Debe ingresar un nombre.');
 	}
 	if (data.descripcion === '') {
-		return new Response(JSON.stringify({code: 402, message: "Debe ingresar una descripción."}))
+		return new Response(JSON.stringify({ code: 402, message: 'Debe ingresar una descripción.' }));
 		//throw error(402, 'Debe ingresar una descripción.');
 	}
 	if (data.cursos.connect.length == 0) {
-		return new Response(JSON.stringify({code: 402, message: "Debe agregar cursos a la ruta."}))
+		return new Response(JSON.stringify({ code: 402, message: 'Debe agregar cursos a la ruta.' }));
 		//throw error(401, 'Debe agregar cursos a la ruta.');
 	}
 
@@ -25,7 +25,9 @@ export async function POST({ request }) {
 	});
 
 	if (verificarRuta.data.length) {
-		return new Response(JSON.stringify({code: 402, message: "Ya existe una ruta con ese nombre."}))
+		return new Response(
+			JSON.stringify({ code: 402, message: 'Ya existe una ruta con ese nombre.' })
+		);
 		//throw error(402, 'El correo ya está registrado.');
 	}
 

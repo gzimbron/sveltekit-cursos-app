@@ -49,12 +49,9 @@
 
 <div class="listado-cursos">
  
-    {#key cursos}
-        {#each cursos as curso}
-            <CursoItem curso={curso} on:eliminarCurso={handleEliminar}/>
-        {/each}
-    {/key}
-    
+    {#each cursos as curso}
+        <CursoItem curso={curso} on:eliminarCurso={handleEliminar}/>
+    {/each}
 
 </div>
 

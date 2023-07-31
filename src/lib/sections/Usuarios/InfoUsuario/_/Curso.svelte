@@ -1,11 +1,18 @@
 <script>
+	import { createEventDispatcher } from "svelte";
+
 
 	export let usuarioCurso;
     let curso = usuarioCurso.attributes.curso.data.attributes;
+	const dispatch = createEventDispatcher()
 
 	async function handleClick(id) {
 
-		const confirmacion = window.confirm('¿Desea eliminar este curso?');
+		dispatch('quitarCurso', {
+			id: id
+		})
+
+		/*const confirmacion = window.confirm('¿Desea eliminar este curso?');
 		if (confirmacion) {
 			await fetch('/api/quitarCurso', {
 				method: 'POST',
@@ -15,7 +22,7 @@
 				}
 			});
             location.reload();
-		}
+		}*/
 	}
 
 </script>

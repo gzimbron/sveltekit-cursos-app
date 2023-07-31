@@ -38,7 +38,7 @@
     }
 
     function agregarCurso(e){
-        
+
         let existe;
         if(cursos[0]){
             
@@ -53,11 +53,10 @@
             cursosAgregados = [...cursosAgregados, cursos[0]];
             const buscador = document.getElementById("busquedaCursos")
             buscador.value = "";
-            console.log(cursosAgregados);
+
         } else {
             return
         }
-        
 
     }
 

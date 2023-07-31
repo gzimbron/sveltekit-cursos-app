@@ -1,5 +1,6 @@
 <script>
 	import Alerta from "$core/classes/Alerta";
+	import Curso from "$sections/Usuarios/InfoUsuario/_/Curso.svelte";
 	import RutaCard from "../_/RutaCard.svelte";
 
 
@@ -37,7 +38,26 @@
     }
 
     function agregarCurso(e){
-        cursosAgregados = [...cursosAgregados, cursos[0]];
+        
+        let existe;
+        if(cursos[0]){
+            
+            cursosAgregados.forEach(element => {
+                if(element.id == cursos[0].id){
+                    Alerta.error("Ese curso ya está agregado a esta ruta.");
+                    existe = true;
+                    return;
+                }
+            })
+            if(existe) return;
+            cursosAgregados = [...cursosAgregados, cursos[0]];
+            const buscador = document.getElementById("busquedaCursos")
+            buscador.value = "";
+            console.log(cursosAgregados);
+        } else {
+            return
+        }
+        
 
     }
 
@@ -79,7 +99,7 @@
             }
         }
 
-        const response = await fetch('/api/agregarRuta',{
+        let response = await fetch('/api/agregarRuta',{
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -88,8 +108,17 @@
         })
 
         if(response.ok){
-            Alerta.success("¡Se ha agregado la ruta!")
-            document.getElementById("nuevo-curso").reset();
+            response = await response.json();
+            if(response.data){
+                Alerta.success("¡Se ha agregado la ruta!")
+                document.getElementById("nueva-ruta").reset();
+                cursosAgregados = [];
+            } else{
+                Alerta.error(response.message, {
+                    title: "Error al agregar la ruta."
+                })
+            }
+            
         } else{
             Alerta.error(
                 "Hubo un error al agregar la ruta.")
@@ -101,11 +130,11 @@
 
 <main class="max-w-3xl mx-auto">
 
-    <form action="" class="w-fit mx-auto mb-5">
+    <form action="" class="w-fit mx-auto mb-5" id="nueva-ruta">
 
-        <label for="nombreRuta">Nombre de la ruta: <input type="text" id="nombreRuta" required/></label>
+        <label for="nombreRuta">Nombre de la ruta: <input type="text" id="nombreRuta" /></label>
 
-        <label for="descripcionRuta">Descripción de la ruta: <input type="text" id="descripcionRuta" required/></label>
+        <label for="descripcionRuta">Descripción de la ruta: <input type="text" id="descripcionRuta" /></label>
 
         <input type="radio" id="activo" name="estadoRuta" value="1" checked>
         <label for="activo" class="estado">Activo</label>

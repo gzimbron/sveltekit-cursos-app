@@ -15,6 +15,7 @@ export async function load() {
 
 		return { usuarios };
 	} catch (e) {
-		console.log(e);
+		const error = { code: 404, message: 'Hubo un error al obtener los usuarios.' };
+		return { error };
 	}
 }

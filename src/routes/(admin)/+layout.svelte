@@ -1,31 +1,72 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import Loading from '$components/Loading.svelte';
+	import { userStore } from '$core/stores/user.store';
 	import { AppRail, AppRailAnchor, AppShell } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
+
+	let loading = true;
+
+	const fakeGetUserLogin = async () => {
+		const token = 'falsotoken';
+		sessionStorage.getItem('utoken');
+
+		if (token !== null) {
+			//  llamar logica para obtener datos del usuario
+			const usuarioData = {
+				id: 1,
+				nombre: 'Gustavo',
+				apellido: 'Zimbrón',
+				admin: true
+			};
+
+			userStore.set(usuarioData);
+		}
+	};
+
+	const verificarLogin = async () => {
+		try {
+			await fakeGetUserLogin();
+
+			if (!$userStore || !$userStore.admin) {
+				return goto('/login');
+			}
+			loading = false;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	onMount(verificarLogin);
 </script>
 
-<AppShell>
-	
-	<svelte:fragment slot="sidebarLeft">
-		<AppRail>
-			<svelte:fragment slot="lead">
-				<AppRailAnchor href="/admin" selected={$page.url.pathname === '/admin'}
-					>Inicio</AppRailAnchor
-				>
-			</svelte:fragment>
-			<!-- --- -->
-			<AppRailAnchor href="/admin/usuarios" selected={$page.url.pathname === '/admin/usuarios'}>
-				<svelte:fragment slot="lead">Usuarios</svelte:fragment>
-			</AppRailAnchor>
-			<AppRailAnchor href="/admin/cursos" selected={$page.url.pathname === '/admin/cursos'}>
-				<svelte:fragment slot="lead">Cursos</svelte:fragment>
-			</AppRailAnchor>
-			<AppRailAnchor href="/admin/rutas" selected={$page.url.pathname === '/admin/rutas'}>
-				<svelte:fragment slot="lead">Rutas</svelte:fragment>
-			</AppRailAnchor>
-			
-		</AppRail>
-	</svelte:fragment>
-	
-	<slot />
+{#if loading}
+	<section class="h-screen w-screen flex items-center">
+		<Loading />
+	</section>
+{:else}
+	<AppShell>
+		<svelte:fragment slot="sidebarLeft">
+			<AppRail>
+				<svelte:fragment slot="lead">
+					<AppRailAnchor href="/admin" selected={$page.url.pathname === '/admin'}
+						>Inicio</AppRailAnchor
+					>
+				</svelte:fragment>
+				<!-- --- -->
+				<AppRailAnchor href="/admin/usuarios" selected={$page.url.pathname === '/admin/usuarios'}>
+					<svelte:fragment slot="lead">Usuarios</svelte:fragment>
+				</AppRailAnchor>
+				<AppRailAnchor href="/admin/cursos" selected={$page.url.pathname === '/admin/cursos'}>
+					<svelte:fragment slot="lead">Cursos</svelte:fragment>
+				</AppRailAnchor>
+				<AppRailAnchor href="/admin/rutas" selected={$page.url.pathname === '/admin/rutas'}>
+					<svelte:fragment slot="lead">Rutas</svelte:fragment>
+				</AppRailAnchor>
+			</AppRail>
+		</svelte:fragment>
 
-</AppShell>
+		<slot />
+	</AppShell>
+{/if}

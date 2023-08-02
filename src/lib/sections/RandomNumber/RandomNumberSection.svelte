@@ -15,6 +15,7 @@
 				method: 'GET'
 			});
 			numero = randomNumber;
+			Alerta.success("Número generado correctamente");
 		} catch (error) {
 			console.error(error);
 			Alerta.error('Error al obtener el número aleatorio');

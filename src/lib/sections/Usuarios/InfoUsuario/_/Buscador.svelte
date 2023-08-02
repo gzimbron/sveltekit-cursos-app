@@ -1,8 +1,9 @@
 <script>
+	import { createEventDispatcher } from "svelte";
 
-    export let idUsuario;
     let resultados;
     let cursos = [];
+    const dispatch = createEventDispatcher();
 
 async function handleInput(e){
         const resultadosBusqueda = document.getElementById("cursos")
@@ -10,7 +11,7 @@ async function handleInput(e){
         const nombreCurso = e.target.value;
 
         resultados = await fetch('/api/buscarCursos', {
-            method: 'POST',
+            method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -34,15 +35,11 @@ async function handleInput(e){
     }
 
     async function agregarCurso() {
-        const curso = cursos[0].id;
+        const curso = cursos[0];     
 
-        await fetch("/api/agregarUsuarioCurso", {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({idUsuario: idUsuario, idCurso: curso})
-        });
-
-        location.reload();
+        dispatch('cursoAgregado', {
+            curso: curso
+        })
             
     }
 

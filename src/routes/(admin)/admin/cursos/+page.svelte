@@ -1,20 +1,8 @@
 <script >
-
-    import { toastStore } from "@skeletonlabs/skeleton";
-    //import type { ToastSettings } from '@skeletonlabs/skeleton';
+    import { fade } from "svelte/transition"
 	import SeccionCursos from "$sections/Cursos/SeccionCursos.svelte";
 
-
     export let data;
-
-    function triggerToast(){
-
-        /**import("@skeletonlabs/skeleton").ToastSettings*/
-        const t ={
-            message: "hola",
-        };
-        toastStore.trigger(t);
-    }
 
 </script>
 
@@ -26,11 +14,22 @@
 
 <a href="cursos/agregarCurso" class="btn variant-filled-tertiary block w-fit mx-auto my-5">Agregar curso</a>
 
+{#if data.error}
+    <aside class="alert variant-filled-error w-modal-slim mx-auto my-5" 
+    transition:fade|local={{duration: 200}}>
+
+        <div class="alert-message">
+            <h3 class="h3">Error</h3>
+            <p>{data.error.message}</p>
+        </div>
+
+    </aside>
+{/if}
+
 <main>
     <SeccionCursos cursos={data.cursos}/>
 </main>
 
-<button on:click={triggerToast}>Yeah</button>
 
 <style lang="postcss">
 

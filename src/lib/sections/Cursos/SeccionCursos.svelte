@@ -1,26 +1,57 @@
 <script>
+	import Alerta from "$core/classes/Alerta";
+    import Alert from "$lib/components/Alert.svelte"
 	import CursoItem from "./_/CursoItem.svelte";
 
-
     export let cursos = [];
+    let visible = false;
+    let idEliminar;
 
     function handleEliminar(e){
 
-        cursos = cursos.filter(item => {
-            return item.id != e.detail.id;
-        })
+        visible = true;
+        idEliminar = e.detail.id;
+
+    }
+
+    async function aceptar(){
+        visible = false;
+
+        const response = await fetch('/api/eliminarCurso', {
+				method: 'POST',
+				body: JSON.stringify(idEliminar),
+				headers: {
+					'Content-Type': 'application/json'
+				} 
+			});
+
+        if(response.ok){
+            Alerta.success("¡Usuario eliminado con éxito!");
+            cursos = cursos.filter(item => {
+                return item.id != idEliminar;
+            })
+        } else{
+            Alerta.error("Hubo un error al eliminar el usuario.")
+        }
+    }
+
+    function cancelar(){
+        visible = false;
     }
 
 </script>
 
-<div class="listado-cursos">
+{#if visible}
+    <Alert mensaje="¿Desea eliminar ese curso?" 
+    on:aceptar={aceptar} 
+    on:cancelar={cancelar} />
+{/if}
 
-    {#key cursos}
-        {#each cursos as curso}
-            <CursoItem curso={curso} on:eliminarCurso={handleEliminar}/>
-        {/each}
-    {/key}
-    
+<div class="listado-cursos">
+ 
+    {#each cursos as curso}
+        <CursoItem curso={curso} on:eliminarCurso={handleEliminar}/>
+    {/each}
 
 </div>
 

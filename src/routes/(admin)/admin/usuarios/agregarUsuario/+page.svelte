@@ -2,7 +2,6 @@
 
 	import FormularioUsuario from "$sections/Usuarios/agregarUsuario/FormularioUsuario.svelte";
 
-
 </script>
 
 <h1 class="my-5 w-fit mx-auto text-2xl">Agregar usuario</h1>

@@ -8,23 +8,10 @@
 
     async function handleClick(id){
 
-        const confirmacion = window.confirm('¿Eliminar este usuario?');
-        if(confirmacion){
+        dispatch('eliminarUsuario', {
+            id: id
+        });
             
-            const response = await fetch('/api/eliminarUsuario', {
-                method: 'POST',
-                body: JSON.stringify(id),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            dispatch('eliminarUsuario', {
-                id: id
-            });
-            
-        }
-
     }
 
 </script>
@@ -41,7 +28,7 @@
 
 </tr>
 
-<style lang="postcss">
+<style lang="postcss"> 
 
     td{
         @apply text-center py-3

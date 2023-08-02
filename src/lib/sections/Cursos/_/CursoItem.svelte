@@ -5,21 +5,11 @@
 	const dispatch = createEventDispatcher();
 
 	async function handleClick(id) {
-		const confirmacion = window.confirm('¿Desea eliminar este curso?');
-		if (confirmacion) {
-			await fetch('/api/eliminarCurso', {
-				method: 'POST',
-				body: JSON.stringify(id),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-
-			dispatch('eliminarCurso', {
-				id: id
-			});
-		}
+		dispatch('eliminarCurso', {
+			id: id
+		});
 	}
+	
 </script>
 
 <div class="card overflow-hidden">

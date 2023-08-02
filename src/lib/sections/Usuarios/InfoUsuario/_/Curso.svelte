@@ -1,21 +1,19 @@
 <script>
+	import { createEventDispatcher } from "svelte";
+	import { onMount } from "svelte";
+
 
 	export let usuarioCurso;
     let curso = usuarioCurso.attributes.curso.data.attributes;
+	onMount(() => {console.log(usuarioCurso.attributes.curso.data)})
+	const dispatch = createEventDispatcher()
 
 	async function handleClick(id) {
 
-		const confirmacion = window.confirm('¿Desea eliminar este curso?');
-		if (confirmacion) {
-			await fetch('/api/quitarCurso', {
-				method: 'POST',
-				body: JSON.stringify(id),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-            location.reload();
-		}
+		dispatch('quitarCurso', {
+			id: id
+		})
+
 	}
 
 </script>

@@ -4,8 +4,6 @@
 
     export let data;
 
-    onMount(() => {console.log(data.data)});
-
 </script>
 <svelte:head>
     <title>Mis cursos</title>

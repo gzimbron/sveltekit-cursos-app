@@ -1,15 +1,54 @@
 <script>
 	import RutaItem from './_/RutaItem.svelte';
+    import Alerta from '$core/classes/Alerta';
+    import Alert from '$components/Alert.svelte';
+
+    let visible = false;
+    let idEliminar;
 
 
     /**  @type {import('$core/entities/Ruta').default[]} */
     export let rutas = [];
 
     async function eliminarRuta(e){
-        rutas = rutas.filter(ruta => ruta.id != e.detail.id)
+        visible = true;
+        idEliminar = e.detail.id
+
+        //rutas = rutas.filter(ruta => ruta.id != e.detail.id)
+    }
+
+    async function aceptar(){
+        visible = false;
+
+        const response = await fetch("/api/eliminarRuta", {
+                method: 'POST',
+                body: JSON.stringify(idEliminar),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+        if(response.ok){
+            Alerta.success("¡Ruta eliminada con éxito!");
+            rutas = rutas.filter(item => {
+                return item.id != idEliminar;
+            })
+        } else{
+            Alerta.error("Hubo un error al eliminar la ruta.")
+        }
+    }
+
+    async function cancelar(){
+        visible = false;
     }
 
 </script>
+
+{#if visible}
+    <Alert mensaje="¿Desea eliminar esta ruta?"
+    on:aceptar={aceptar}
+    on:cancelar={cancelar}/>
+{/if}
 
 <div class="max-w-2xl my-10 mx-auto">
 

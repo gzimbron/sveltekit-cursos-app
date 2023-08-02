@@ -1,5 +1,5 @@
 <script>
-
+    import { fade } from "svelte/transition"
 	import SeccionUsuarios from "$sections/Usuarios/SeccionUsuarios.svelte";
 
     /** @type {import("./$types").PageData} */
@@ -14,5 +14,18 @@
 <h1 class="w-fit mx-auto my-5 text-2xl">Listado de usuarios</h1>
 
 <a href="usuarios/agregarUsuario" class="btn variant-filled-tertiary block w-fit mx-auto my-5">Agregar usuario</a>
+
+{#if data.error}
+    <aside class="alert variant-filled-error w-modal-slim mx-auto my-5" 
+    transition:fade|local={{duration: 200}}>
+
+        <div class="alert-message">
+            <h3 class="h3">Error</h3>
+            <p>{data.error.message}</p>
+        </div>
+
+    </aside>
+{/if}
+
 
 <SeccionUsuarios usuarios={data.usuarios} />

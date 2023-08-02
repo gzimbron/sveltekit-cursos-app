@@ -29,10 +29,3 @@
 	<slot />
 
 </AppShell>
-
-
-<style lang="postcss">
-	.botones {
-		@apply mt-9;
-	}
-</style>

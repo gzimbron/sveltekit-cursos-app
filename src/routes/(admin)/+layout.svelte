@@ -2,35 +2,22 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Loading from '$components/Loading.svelte';
+	import { getUserLogin } from '$core/functions/getUserLogin';
 	import { userStore } from '$core/stores/user.store';
 	import { AppRail, AppRailAnchor, AppShell } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 
 	let loading = true;
 
-	const fakeGetUserLogin = async () => {
-		const token = 'falsotoken';
-		sessionStorage.getItem('utoken');
-
-		if (token !== null) {
-			//  llamar logica para obtener datos del usuario
-			const usuarioData = {
-				id: 1,
-				nombre: 'Gustavo',
-				apellido: 'Zimbrón',
-				admin: true
-			};
-
-			userStore.set(usuarioData);
-		}
-	};
-
 	const verificarLogin = async () => {
 		try {
-			await fakeGetUserLogin();
+			await getUserLogin();
+			if(!$userStore){
+				return goto("/")
+			}
 
-			if (!$userStore || !$userStore.admin) {
-				return goto('/login');
+			if (!$userStore.admin) {
+				return goto('/home/mis-cursos');
 			}
 			loading = false;
 		} catch (error) {

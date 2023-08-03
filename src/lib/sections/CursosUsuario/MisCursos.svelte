@@ -1,8 +1,23 @@
 <script>
+	import { onMount } from "svelte";
 	import CursoUsuario from "./_/CursoUsuario.svelte";
 
+    //export let cursos;
+    export let idUsuario;
+    let cursos = [];
 
-    export let cursos;
+    async function obtenerCursos(){
+        const response = await fetch('/api/obtenerCursos', {
+            method: 'POST',
+            body: JSON.stringify({idUsuario: idUsuario}),
+            headers: {
+				'Content-Type': 'application/json'
+			} 
+        });
+        cursos = await response.json();
+    }
+
+    onMount(obtenerCursos);
 
 </script>
 
@@ -13,9 +28,17 @@
 
     <div class="listado-cursos">
 
-        {#each cursos as curso}
-            <CursoUsuario usuarioCurso={curso}/>
-        {/each}
+        {#await cursos}
+            <p>si</p>
+        {:then cursos} 
+            {#each cursos as curso}
+                <CursoUsuario usuarioCurso={curso}/>
+            {:else}
+                <p>si</p>
+            {/each}
+
+        {/await}
+        
 
     </div>
 

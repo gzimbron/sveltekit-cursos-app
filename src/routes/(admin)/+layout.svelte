@@ -6,6 +6,7 @@
 	import { userStore } from '$core/stores/user.store';
 	import { AppRail, AppRailAnchor, AppShell } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
+	import { logout } from '$core/functions/logout';
 
 	let loading = true;
 
@@ -36,10 +37,13 @@
 	<AppShell>
 		<svelte:fragment slot="sidebarLeft">
 			<AppRail>
+					<AppRailAnchor href="" on:click={logout}>
+						<svelte:fragment slot="lead">Cerrar sesión</svelte:fragment>
+					</AppRailAnchor>
 				<svelte:fragment slot="lead">
-					<AppRailAnchor href="/admin" selected={$page.url.pathname === '/admin'}
-						>Inicio</AppRailAnchor
-					>
+					<AppRailAnchor href="/admin" selected={$page.url.pathname === '/admin'}>
+						Inicio
+					</AppRailAnchor>
 				</svelte:fragment>
 				<!-- --- -->
 				<AppRailAnchor href="/admin/usuarios" selected={$page.url.pathname === '/admin/usuarios'}>

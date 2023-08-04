@@ -4,6 +4,8 @@
 	import { userStore } from "$core/stores/user.store";
     import Loading from '$components/Loading.svelte';
 	import { onMount } from "svelte";
+	import { logout } from "$core/functions/logout";
+	import { Modal } from "@skeletonlabs/skeleton";
 
     let loading = true;
 
@@ -24,11 +26,14 @@
 
 </script>
 
+<Modal />
+
 {#if loading}
 	<section class="h-screen w-screen flex items-center">
 		<Loading />
 	</section>
 {:else}
+	<button class="mt-3 ml-3" on:click={logout}>Cerrar sesión</button>
 
     <slot />
 {/if}

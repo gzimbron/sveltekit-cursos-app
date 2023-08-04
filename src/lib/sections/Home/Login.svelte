@@ -15,23 +15,29 @@
                 }
 
             }else{
+                const boton = document.querySelector("button");
+                boton.disabled = false;
                 Alerta.error(result.error.message, {
                     title: "Error al iniciar sesión"
                 });
             }
         };
     }
+
+    function deshabilitarBoton(e){
+        e.target.disabled = true;
+    }
+
 </script>
 
 
-<div>
+<div class="border border-black rounded-lg w-modal-slim p-5 bg-white mx-auto">
 
     <form action="/" method="POST" use:enhance={formSubmitted}>
 
-        <label for="email"><input type="email" placeholder="Email" name="email"></label>
-        <button>Iniciar sesión</button>
-
+        <label for="email" class="my-5"><input type="email" placeholder="Email" name="email" class="text-black rounded-md w-full"></label>
+        <button type="submit"  class="btn block my-5 mx-auto bg-yellow-400 text-black">Iniciar sesión</button>
+        <!--on:click={deshabilitarBoton}-->
     </form>
-
 
 </div>

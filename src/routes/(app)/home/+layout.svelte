@@ -13,12 +13,12 @@
 		try {
 			await getUserLogin();
 			if(!$userStore){
-				return goto("/")
+				return goto("/");
 			}
 
 			loading = false;
 		} catch (error) {
-			console.log(error);
+			return goto("/");
 		}
 	};
 

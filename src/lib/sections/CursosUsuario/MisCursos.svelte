@@ -1,26 +1,10 @@
 <script>
-	import { onMount } from "svelte";
 	import CursoUsuario from "./_/CursoUsuario.svelte";
 	import Loading from "$components/Loading.svelte";
+	import { fade } from "svelte/transition";
 
-    //export let cursos;
     export let idUsuario;
     let cursos = [];
-
-    /*async function obtenerCursos(){
-        let loading = true;
-        const response = await fetch('/api/obtenerCursos', {
-            method: 'POST',
-            body: JSON.stringify({idUsuario: idUsuario}),
-            headers: {
-				'Content-Type': 'application/json'
-			} 
-        });
-        cursos = await response.json();
-        loading = false;
-    }
-
-    onMount(obtenerCursos);*/
 
     let loading = true;
     cursos = fetch('/api/obtenerCursos', {
@@ -51,7 +35,16 @@
             {:else}
                 <p>No hay cursos asignados.</p>
             {/each}
-
+        {:catch}    
+            <aside class="alert variant-filled-error w-modal-slim mx-auto my-5" 
+            transition:fade|local={{duration: 200}}>
+        
+                <div class="alert-message">
+                    <h3 class="h3">Error</h3>
+                    <p>Error al obtener los cursos.</p>
+                </div>
+        
+            </aside>
         {/await}
         
 

@@ -9,7 +9,12 @@ export async function POST({ request }) {
 		method: 'GET'
 	};
 
-	const result = await apiFetch(req);
-
-	return new Response(JSON.stringify(result));
+	try{
+		const result = await apiFetch(req);
+		return new Response(JSON.stringify(result));
+	}
+	catch{
+		throw new Error("Error al obtener la información del usuario.")
+	}
+	
 }

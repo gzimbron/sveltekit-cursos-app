@@ -1,12 +1,14 @@
 <script>
 	import { onMount } from "svelte";
 	import CursoUsuario from "./_/CursoUsuario.svelte";
+	import Loading from "$components/Loading.svelte";
 
     //export let cursos;
     export let idUsuario;
     let cursos = [];
 
-    async function obtenerCursos(){
+    /*async function obtenerCursos(){
+        let loading = true;
         const response = await fetch('/api/obtenerCursos', {
             method: 'POST',
             body: JSON.stringify({idUsuario: idUsuario}),
@@ -15,9 +17,22 @@
 			} 
         });
         cursos = await response.json();
+        loading = false;
     }
 
-    onMount(obtenerCursos);
+    onMount(obtenerCursos);*/
+
+    let loading = true;
+    cursos = fetch('/api/obtenerCursos', {
+        method: 'POST',
+        body: JSON.stringify({idUsuario: idUsuario}),
+        headers: {
+			'Content-Type': 'application/json'
+		} 
+    }).then(response => response.json())
+
+
+    loading = false;
 
 </script>
 
@@ -29,12 +44,12 @@
     <div class="listado-cursos">
 
         {#await cursos}
-            <p>si</p>
+            <Loading />
         {:then cursos} 
             {#each cursos as curso}
                 <CursoUsuario usuarioCurso={curso}/>
             {:else}
-                <p>si</p>
+                <p>No hay cursos asignados.</p>
             {/each}
 
         {/await}

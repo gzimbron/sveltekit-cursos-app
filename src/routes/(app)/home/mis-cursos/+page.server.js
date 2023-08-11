@@ -4,9 +4,7 @@ import { userStore } from '$core/stores/user.store';
 
 /** @type {import("./$types").PageServerLoad} */
 export async function load() {
-
 	const response = await apiFetch({
-		
 		endPoint: `usuario-cursos?filters[idUsuario][$eq]=${USER_ID}&populate=*`,
 		method: 'GET'
 	});

@@ -1,20 +1,91 @@
-<script>
+<script lang="ts">
+	import { cursoId, imagenURL } from '$core/stores/curso.store';
+	import { modalStore, type ModalComponent, type ModalSettings } from "@skeletonlabs/skeleton";
+	import FormVerificacion from "../FormVerificacion.svelte";
+	import Loading from '$components/Loading.svelte';
+	import { onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
+	import ImagenEvidencia from './ImagenEvidencia.svelte';
+	import Alerta from '$core/classes/Alerta';
 
 	export let usuarioCurso;
     let curso = usuarioCurso.attributes.curso.data.attributes;
+	let btnVisible = true;
+	let textoBtn;
+	let loading = false;
+	let unsuscribe;
 
-	async function handleClick(id) {
+	unsuscribe = imagenURL.subscribe((value) => {
+		if(value != null) usuarioCurso.attributes.verificacion = value;
+	});
 
-		await fetch("/api/terminarCurso", {
-			method: "POST",
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			body: JSON.stringify(id)
-		})
+	$: if(usuarioCurso.attributes.terminado && !usuarioCurso.attributes.verificacion){
 
-		usuarioCurso.attributes.terminado = true;
+			textoBtn = "Agregar evidencia";
+		} else if(usuarioCurso.attributes.terminado && usuarioCurso.attributes.verificacion){
+			btnVisible = false;
+		} else {
+			textoBtn = "Marcar como completado"
+		}
+	
+	async function handleClick() {
+
+		if(!usuarioCurso.attributes.terminado){
+
+			loading = true;
+			let result = await fetch("/api/terminarCurso", {
+				method: "POST",
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(usuarioCurso.id)
+			})
+			result = await result.json();
+			console.log(result);
+			
+			if(result.data){
+				usuarioCurso.attributes.terminado = true;
+				loading = false;
+				textoBtn = "Agregar evidencia"
+			} else {
+				loading = false;
+				Alerta.error(result.message)
+				return;
+			}
+
+			
+		}
+
+		cursoId.set(usuarioCurso.id);
+
+		const modalComponent: ModalComponent = {
+            ref: FormVerificacion,
+        };
+
+        const modal: ModalSettings = {
+            type: 'component',
+            component: modalComponent
+        }
+        modalStore.trigger(modal);
+
 	}
+
+	function mostrarEvidencia(){
+		
+		cursoId.set(usuarioCurso.id);
+		const modalComponent: ModalComponent = {
+            ref: ImagenEvidencia,
+        };
+
+        const modal: ModalSettings = {
+            type: 'component',
+            component: modalComponent
+        }
+        modalStore.trigger(modal);
+	}
+
+	onDestroy(unsuscribe);
+	
 
 </script>
 
@@ -38,9 +109,19 @@
 		</div>
 		<a class="block" href={curso.cursoURL}>Ir al curso</a>
 	</footer>
-	{#if !usuarioCurso.attributes.terminado}
-	<button class="mx-auto p-2 rounded mb-5 block bg-tertiary-500" 
-		on:click={() => handleClick(usuarioCurso.id)}>Marcar como completado</button>
+	{#if loading}
+		<Loading />
+	{:else}
+		{#if btnVisible}
+		<button class="mx-auto p-2 rounded mb-5 block bg-tertiary-500" 
+			on:click={handleClick}
+			id="button">{textoBtn}</button>
+		{:else}
+			<button class="mx-auto p-2 rounded mb-5 block bg-tertiary-500" 
+			on:click={mostrarEvidencia}
+			id="button">Ver evidencia</button>
+		{/if}
 	{/if}
+	
 	
 </div>

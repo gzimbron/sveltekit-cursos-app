@@ -33,7 +33,7 @@
 		<Loading />
 	</section>
 {:else}
-	<button class="mt-3 ml-3" on:click={logout}>Cerrar sesión</button>
+	<button class="mt-3 ml-3 btn bg-yellow-400 text-black" on:click={logout}>Cerrar sesión</button>
 
     <slot />
 {/if}

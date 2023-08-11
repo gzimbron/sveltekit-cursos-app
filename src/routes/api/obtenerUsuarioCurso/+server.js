@@ -3,13 +3,14 @@ import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-	const { id } = await request.json();
+	const id = await request.json();
 	const req = {
-		endPoint: `usuarios?filters[id][$eq]=${id}`,
+		endPoint: `usuario-cursos?filters[id][$eq]=${id}`,
 		method: 'GET'
 	};
 
 	const result = await apiFetch(req);
+	let data = result.data;
 
-	return new Response(JSON.stringify(result));
+	return new Response(JSON.stringify(data));
 }

@@ -1,11 +1,24 @@
-<script>
-	import { createEventDispatcher } from "svelte";
-	import { onMount } from "svelte";
+<!-- Elemento curso para la vista del administrador-->
 
+<script lang="ts">
+	import { cursoId } from "$core/stores/curso.store";
+	import { modalStore, type ModalComponent, type ModalSettings } from "@skeletonlabs/skeleton";
+	import { createEventDispatcher } from "svelte";
+	import ImagenEvidencia from "$components/ImagenEvidencia.svelte";
 
 	export let usuarioCurso;
     let curso = usuarioCurso.attributes.curso.data.attributes;
-	onMount(() => {console.log(usuarioCurso.attributes.curso.data)})
+	let btnVisible = true;
+	let btnTexto;
+
+	if(usuarioCurso.attributes.terminado && usuarioCurso.attributes.verificacion){
+		btnTexto = "Ver evidencia";
+	} else if(usuarioCurso.attributes.terminado && !usuarioCurso.attributes.verificacion){
+		btnTexto = "No hay evidencia aún";
+	} else {
+		btnVisible = false;
+	}
+
 	const dispatch = createEventDispatcher()
 
 	async function handleClick(id) {
@@ -14,6 +27,20 @@
 			id: id
 		})
 
+	}
+
+	function mostrarEvidencia(){
+		
+		cursoId.set(usuarioCurso.id);
+		const modalComponent: ModalComponent = {
+            ref: ImagenEvidencia,
+        };
+
+        const modal: ModalSettings = {
+            type: 'component',
+            component: modalComponent
+        }
+        modalStore.trigger(modal);
 	}
 
 </script>
@@ -44,4 +71,10 @@
 		</div>
 		<a class="block" href={curso.cursoURL}>Ir al curso</a>
 	</footer>
+
+	{#if btnVisible}
+		<button class="mx-auto p-2 rounded mb-5 block bg-tertiary-500"
+		disabled={!usuarioCurso.attributes.verificacion}
+		on:click={mostrarEvidencia}>{btnTexto}</button>
+	{/if}
 </div>

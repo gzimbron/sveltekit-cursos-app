@@ -4,7 +4,7 @@
 	import Loading from '$components/Loading.svelte';
 	import { getUserLogin } from '$core/functions/getUserLogin';
 	import { userStore } from '$core/stores/user.store';
-	import { AppRail, AppRailAnchor, AppShell } from '@skeletonlabs/skeleton';
+	import { AppRail, AppRailAnchor, AppShell, Modal } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import { logout } from '$core/functions/logout';
 
@@ -28,6 +28,8 @@
 
 	onMount(verificarLogin);
 </script>
+
+<Modal />
 
 {#if loading}
 	<section class="h-screen w-screen flex items-center">

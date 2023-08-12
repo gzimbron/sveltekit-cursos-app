@@ -1,86 +1,8 @@
 <script>
-	import Alerta from "$core/classes/Alerta";
-    import Alert from '$components/Alert.svelte';
-	import Buscador from "./_/Buscador.svelte";
-    import Curso from "./_/Curso.svelte";
 	import Cursos from "./_/Cursos.svelte";
 
     export let usuario;
     export let usuarioCursos = [];
-    /*let visible = false;
-    let agregarCurso = false;
-    let idEliminar;
-
-    function abrirBuscador(){
-        agregarCurso = !agregarCurso;
-    }
-
-    async function asignarCurso(e){
-        let existe;
-        const curso = e.detail.curso;
-
-        usuarioCursos.forEach(element => {
-            const cursoId = element.attributes.curso.data.id;
-            if(cursoId === curso.id){
-                existe = true;
-                Alerta.error("Este curso ya está asignado");
-                return
-            }
-        })
-        if(existe) return;
-
-        let response = await fetch("/api/agregarUsuarioCurso", {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({idUsuario: usuario.id, idCurso: curso.id})
-        })
-
-        if(response.ok){
-            Alerta.success("Se asignó el curso con éxito.")
-        } else {
-            Alerta.error("Algo salió mal al asignar el curso.")
-        }
-
-        //response = await response.json();
-
-        document.getElementById("busquedaCursos").value = "";
-        /*console.log(curso)
-        console.log(usuarioCursos)
-        //usuarioCursos = [...usuarioCursos, response.data];
-        location.reload();
-    }
-
-    function quitarCurso(e){
-        visible = true;
-        idEliminar = e.detail.id;
-    }
-
-    function cancelar(){
-        visible = false;
-    }
-
-    async function aceptar(){
-        visible = false;
-
-		const response = await fetch('/api/quitarCurso', {
-			method: 'POST',
-			body: JSON.stringify(idEliminar),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-            
-        if(response.ok){
-            Alerta.success("¡Curso eliminado con éxito!");
-            usuarioCursos = usuarioCursos.filter(item => {
-                return item.id != idEliminar;
-            })
-        } else{
-            Alerta.error("Hubo un error al eliminar el curso.")
-        }
-
-	}*/
-
 
 </script>
 

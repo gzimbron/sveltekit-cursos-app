@@ -5,7 +5,7 @@
 	import Loading from '$components/Loading.svelte';
 	import { onMount } from 'svelte';
 	import { onDestroy } from 'svelte';
-	import ImagenEvidencia from './ImagenEvidencia.svelte';
+	import ImagenEvidencia from '$components/ImagenEvidencia.svelte';
 	import Alerta from '$core/classes/Alerta';
 
 	export let usuarioCurso;

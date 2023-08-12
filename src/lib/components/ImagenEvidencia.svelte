@@ -1,7 +1,7 @@
 <script>
 	import Loading from "$components/Loading.svelte";
 	import Alerta from "$core/classes/Alerta";
-import { cursoId } from "$core/stores/curso.store";
+    import { cursoId } from "$core/stores/curso.store";
 	import { modalStore } from "@skeletonlabs/skeleton";
 	import { onMount } from "svelte";
 
@@ -10,8 +10,14 @@ import { cursoId } from "$core/stores/curso.store";
     let loading = false;
 
     onMount(() => {
-        id = $cursoId
-        consulta();
+        if($cursoId){
+            id = $cursoId
+            consulta();
+        } else {
+            modalStore.close();
+            Alerta.error("Error al mostrar la imagen");
+        }
+        
     })
 
     async function consulta(){

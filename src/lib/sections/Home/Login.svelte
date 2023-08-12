@@ -28,6 +28,13 @@
         e.target.disabled = true;
     }
 
+    function alerta(){
+        Alerta.customQuestion("Seguro?")
+        .then((result) => {
+            console.log(result);
+        })
+    }
+
 </script>
 
 
@@ -39,5 +46,7 @@
         <button type="submit"  class="btn block my-5 mx-auto bg-yellow-400 text-black">Iniciar sesión</button>
         <!--on:click={deshabilitarBoton}-->
     </form>
+
+    <button on:click={alerta} class="text-black">Alerta</button>
 
 </div>

@@ -87,12 +87,19 @@ export default class Alerta {
 
 	/**
 	 * Lanza una alerta personalizada
+	 * @param {string} text Mensaje del alert
 	 * @param {import('sweetalert2').SweetAlertOptions} options Opciones de SweetAlert2
 	 * @returns
 	 */
-	static async custom(options = {}) {
+	static async customQuestion(text, options = {}) {
 		return Swal.fire({
 			...swalProps,
+			text,
+			icon: 'warning',
+			confirmButtonText: 'Sí',
+			showCancelButton: true,
+			cancelButtonText: 'No',
+			focusCancel: true,
 			...options
 		});
 	}

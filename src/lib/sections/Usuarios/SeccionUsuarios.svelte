@@ -1,30 +1,25 @@
 <script>
-	import Alert from '$components/Alert.svelte';
-	import { createEventDispatcher } from "svelte";
 	import UsuarioItem from "./_/UsuarioItem.svelte";
     import Alerta from '$core/classes/Alerta';
-
-    let visible = false;
-    let idEliminar;
-    const dispatch = createEventDispatcher();
-
 
     /**  @type {import('$core/entities/Usuario').default[]} */
     export let usuarios = [];
 
     function handleEliminar(e){
 
-        visible = true;
-        idEliminar = e.detail.id;
-
+        Alerta.customQuestion('¿Desea eliminar este usuario?')
+        .then((result) => {
+            if(result.isConfirmed){
+                consulta(e.detail.id);
+            }
+        })
     }
 
-    async function aceptar(){
-        visible = false;
+    async function consulta(id){
 
         const response = await fetch('/api/eliminarUsuario', {
             method: 'POST',
-            body: JSON.stringify(idEliminar),
+            body: JSON.stringify(id),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -33,27 +28,16 @@
         if(response.ok){
             Alerta.success("¡Usuario eliminado con éxito!");
             usuarios = usuarios.filter(item => {
-                return item.id != idEliminar;
+                return item.id != id;
             })
         } else{
-            console.log(response)
-            Alerta.error("Hubo un error al eliminar el usuario.")
-        }
-        
-        
-    }
 
-    function cancelar(){
-        visible = false;
+            Alerta.error("Hubo un error al eliminar el usuario.");
+
+        }
     }
     
 </script>
-
-{#if visible}
-    <Alert mensaje="¿Desea eliminar ese usuario?" 
-    on:aceptar={aceptar} 
-    on:cancelar={cancelar} />
-{/if}
 
 <div class="max-w-2xl my-10 mx-auto">
 

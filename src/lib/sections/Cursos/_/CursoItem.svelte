@@ -1,3 +1,5 @@
+<!-- Elemento curso para la vista de administrador -->
+
 <script>
 	import { createEventDispatcher } from 'svelte';
 

@@ -17,7 +17,7 @@ export const getUserLogin = async () => {
 			})
 		});
 		consulta = await consulta.json();
-		consulta = consulta.data[0]; 
+		consulta = consulta.data[0];
 
 		const usuarioData = {
 			id: consulta.id,

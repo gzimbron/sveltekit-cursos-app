@@ -19,3 +19,40 @@ export async function load() {
 		return { error };
 	}
 }
+
+/** @type {import('./$types').Actions} */
+export const actions = {
+	default: async ({ request }) => {
+		const formData = await request.formData();
+		const nombre = formData.get('nombre');
+		const email = formData.get('email');
+		const provider = formData.get('provider');
+		const adminform = formData.get('admin');
+
+		const obj = {
+			nombre: nombre,
+			email: email,
+			provider: provider
+		};
+
+		console.log(obj);
+
+		const body = {
+			data: {
+				nombre: nombre,
+				email: email,
+				provider: provider,
+				admin: adminform == 'on' ? true : false
+			}
+		};
+
+		console.log(body);
+
+		/*
+		const req = {
+			endPoint: `usuario-cursos/${id}`,
+			method: 'PUT',
+			body: body
+		};*/
+	}
+};

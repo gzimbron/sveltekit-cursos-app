@@ -9,12 +9,10 @@ export async function POST({ request }) {
 		method: 'GET'
 	};
 
-	try{
+	try {
 		const result = await apiFetch(req);
 		return new Response(JSON.stringify(result));
+	} catch {
+		throw new Error('Error al obtener la información del usuario.');
 	}
-	catch{
-		throw new Error("Error al obtener la información del usuario.")
-	}
-	
 }

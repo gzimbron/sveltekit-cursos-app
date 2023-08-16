@@ -3,7 +3,6 @@
 	import { modalStore, type ModalComponent, type ModalSettings } from "@skeletonlabs/skeleton";
 	import FormVerificacion from "../FormVerificacion.svelte";
 	import Loading from '$components/Loading.svelte';
-	import { onMount } from 'svelte';
 	import { onDestroy } from 'svelte';
 	import ImagenEvidencia from '$components/ImagenEvidencia.svelte';
 	import Alerta from '$core/classes/Alerta';

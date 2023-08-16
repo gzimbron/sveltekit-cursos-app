@@ -1,15 +1,36 @@
 <!-- Elemento curso para la vista de administrador -->
 
-<script>
+<script lang="ts">
+	import { cursoId } from '$core/stores/curso.store';
+	import { modalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
+	import EditarCurso from './EditarCurso.svelte';
 
 	export let curso;
 	const dispatch = createEventDispatcher();
 
-	async function handleClick(id) {
+	// Levanta evento para eliminar el curso
+	async function eliminar(id) {
 		dispatch('eliminarCurso', {
 			id: id
 		});
+	}
+
+	// Editar el curso
+	async function editar(id){
+
+		// Guarda el ID del curso en store para acceder desde EditarCurso
+		// Abre el modal con el componente EditarCurso
+		cursoId.set(id);
+        const modalComponent: ModalComponent = {
+            ref: EditarCurso,
+        };
+
+        const modal: ModalSettings = {
+            type: 'component',
+            component: modalComponent
+        }
+        modalStore.trigger(modal);
 	}
 	
 </script>
@@ -18,10 +39,14 @@
 	<div class="relative">
 		<button
 			on:click={() => {
-				handleClick(curso.id);
+				editar(curso.id);
 			}}
-			class="bg-red-700 absolute top-2 right-2 p-1 z-20">Eliminar</button
-		>
+			class="bg-primary-600 absolute top-2 left-2 p-1 z-20">Editar</button>
+		<button
+			on:click={() => {
+				eliminar(curso.id);
+			}}
+			class="bg-red-700 absolute top-2 right-2 p-1 z-20">Eliminar</button>
 	</div>
 	<header>
 		<img src={curso.imagenURL} class="bg-black/50 w-full" alt="Post" />

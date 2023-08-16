@@ -1,9 +1,7 @@
 <script>
-	import { onMount } from "svelte";
 	import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
-
 
     export let curso;
 
@@ -17,7 +15,7 @@
 
 </script>
 
-<div class="card flex justify-start items-center space-x-4">
+<div class="card flex justify-start items-center space-x-4 max-w-xl">
     <img src={curso.attributes.imagenURL} alt="Post">
     <h3>{curso.attributes.nombre}</h3>
     <p>{curso.attributes.descripcion}</p>

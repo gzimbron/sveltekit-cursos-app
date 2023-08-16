@@ -127,7 +127,7 @@
 
 </script>
 
-<main class="max-w-3xl mx-auto">
+<main class="max-w-xl mx-auto">
 
     <form action="" class="w-fit mx-auto mb-5" id="nueva-ruta">
 
@@ -193,6 +193,10 @@
 
     .estado{
         @apply inline mx-3;
+    }
+
+    #busquedaCursos{
+        @apply text-black h-7 rounded-md w-full;
     }
 
 </style>

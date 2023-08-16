@@ -1,16 +1,36 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+    import { rutaId } from '$core/stores/curso.store';
+	import { modalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
+    import EditarRuta from './EditarRuta.svelte';
 
     /**  @type {import('$core/entities/Ruta').default} */
     export let ruta;
     
     const dispatch = createEventDispatcher()
 
-    async function handleClick(id){
+    async function eliminar(){
 
         dispatch('eliminarRuta', {
-            id: id
+            id: ruta.id
         })
+
+    }
+
+    async function editar(){
+
+        // Guarda el ID de la ruta en store para acceder desde EditarCurso
+		// Abre el modal con el componente EditarCurso
+		rutaId.set(ruta.id);
+        const modalComponent: ModalComponent = {
+            ref: EditarRuta,
+        };
+
+        const modal: ModalSettings = {
+            type: 'component',
+            component: modalComponent
+        }
+        modalStore.trigger(modal);
 
     }
 
@@ -26,7 +46,8 @@
     {:else}
         <td>🔴</td>
     {/if}
-    <td><button class="bg-red-700 p-1" on:click={() => {handleClick(ruta.id)}}>Eliminar</button></td>
+    <td><button class="bg-red-700 p-1" on:click={eliminar}>Eliminar</button></td>
+    <td><button class="bg-primary-600 p-1" on:click={editar}>Editar</button></td>
     
 </tr>
 

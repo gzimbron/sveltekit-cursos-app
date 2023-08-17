@@ -68,13 +68,18 @@
 {#if loading}
     <Loading />
 {:else}
-    <div id="form">
+    <div id="form" class="w-modal">
 
         <form action="" bind:this={form}>
 
-            <div class="w-modal bg-surface-700 p-5">
+            <div class="bg-surface-700 p-5">
                 <h3 class="w-fit mx-auto mb-5 text-lg">Debes subir una imagen como evidencia</h3>
-                <input type="file" name="files" on:change={onChangeHandler} />    
+                <label for="files" class="border rounded-lg p-10 flex flex-col gap-3 justify-center items-center">
+                    <span class="font-bold">Suelta aquí la imagen</span> 
+                    o
+                    <input type="file" name="files" id="files" on:change={onChangeHandler} />
+                </label>
+                    
                 <button on:click={cerrarModal} class="btn variant-filled-primary block w-fit mx-auto mt-5">Agregar en otro momento</button>
             </div>
 
@@ -83,4 +88,9 @@
     </div>
     
 {/if}
+
+<style lang="postcss">
+
+
+</style>
     

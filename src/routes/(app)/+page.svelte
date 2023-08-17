@@ -1,10 +1,9 @@
 <script>
 	import Login from './../../lib/sections/Home/Login.svelte';
-	import HomeSection from '$sections/Home/HomeSection.svelte';
 </script>
 
 <svelte:head>
-	<title>¡Página de inicio!</title>
+	<title>Iniciar sesión - Administrador de cursos</title>
 </svelte:head>
 
 <!-- <HomeSection /> -->

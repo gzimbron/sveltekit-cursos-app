@@ -1,3 +1,5 @@
+<!-- Elemento que muestra información de la ruta en la tabla de SeccionRutas -->
+
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
     import { rutaId } from '$core/stores/curso.store';
@@ -11,6 +13,7 @@
 
     async function eliminar(){
 
+        // Levanta un evento para que SeccionRutas elimine la ruta
         dispatch('eliminarRuta', {
             id: ruta.id
         })

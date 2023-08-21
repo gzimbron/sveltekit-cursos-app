@@ -1,3 +1,5 @@
+// Obtiene una ID de un usuario para buscarlo en la BD y retornar su información.
+
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

@@ -1,3 +1,5 @@
+// Actualiza la información de un curso mediante el formulario EditarCurso.
+
 import { json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 

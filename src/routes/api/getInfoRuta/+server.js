@@ -1,3 +1,5 @@
+// Obtiene un ID de una ruta y lo busca en la BD para retornar su información.
+
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

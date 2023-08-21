@@ -1,24 +1,23 @@
+<!-- Formulario para agregar un usuario -->
+
 <script>
-import { enhance } from '$app/forms';
-import Alerta from '$core/classes/Alerta';
- 
+    import { enhance } from '$app/forms';
+    import Alerta from '$core/classes/Alerta';
+    
+    const formSubmitted = async () => {
+        return async ({ result }) => {
+            if(result.type === "success"){
+                Alerta.success("¡Usuario agregado con éxito!");
+                document.getElementById("nuevo-usuario").reset();
+            }else{
+                Alerta.error(result.error.message, {
+                    title: "Error al agregar usuario"
+                });
+            }
+        };
 
-const formSubmitted = async () => {
-    return async ({ result }) => {
-        if(result.type === "success"){
-            Alerta.success("¡Usuario agregado con éxito!");
-            document.getElementById("nuevo-usuario").reset();
-        }else{
-            Alerta.error(result.error.message, {
-                title: "Error al agregar usuario"
-            });
-        }
-    };
-
-}
+    }
 </script>
-
- 
 
 <form method="POST" action="/admin/usuarios/agregarUsuario" id="nuevo-usuario" class="w-fit mx-auto" use:enhance={formSubmitted}>
     

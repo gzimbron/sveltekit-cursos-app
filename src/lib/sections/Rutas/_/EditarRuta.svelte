@@ -5,6 +5,7 @@
     import { rutaId } from "$core/stores/curso.store";
 	import { modalStore } from "@skeletonlabs/skeleton";
 	import RutaCard from "./RutaCard.svelte";
+	import Buscador from "$sections/Usuarios/InfoUsuario/_/Buscador.svelte";
 
 
     let nombre, descripcion, activo, cursosAgregados, info, resultados;
@@ -12,6 +13,8 @@
     // Recibe el ID de la ruta del store
     let id = $rutaId;
     let loading = false;
+    let resultadosBusqueda;
+    let buscador;
 
     // Obtiene la información actual del curso para colocarla en el formulario
     async function getData(){
@@ -40,11 +43,13 @@
 
     async function handleSubmit(){
 
+        // Si no hay cursos agregados lanza una alerta
         if(cursosAgregados.length == 0){
             Alerta.error("Agregue cursos a la ruta.")
             return;
         }
 
+        // Crea una lista con las IDs de los cursos asignados
         const ids = cursosAgregados.map(curso => curso.id);
 
         const jsonRequest = {
@@ -59,10 +64,7 @@
             id: id,
 
         }
-
-        console.log(jsonRequest);
-
-        
+  
         loading = true;
         let response = await fetch('/api/updateRuta', {
             method: 'POST',
@@ -79,6 +81,8 @@
     }
 
     function eliminarCurso(e){
+
+        // Elimina el curso de la lista de cursos 
         cursosAgregados = cursosAgregados.filter(curso => {
             return curso.id != e.detail.id;
         });
@@ -86,8 +90,8 @@
 
     async function handleInput(e){
 
-        // Reemplaza esto por bind
-        const resultadosBusqueda = document.getElementById("cursos")
+        // Esta función busca en la API cursos cuyo nombre coincida con lo ingresado en el input
+        // y coloca los nombres dentro de un datalist.
         resultadosBusqueda.innerHTML = "";
         const nombreCurso = e.target.value;
 
@@ -104,6 +108,7 @@
         .then(res => res.json())
         .then(res => {
             res.data.forEach(elemento => {
+                // Agrega los resultados a la datalist
                 const opcion = document.createElement("option");
                 opcion.value = elemento.attributes.nombre;
                 resultadosBusqueda.appendChild(opcion);
@@ -118,6 +123,8 @@
     function agregarCurso(e){
 
         let existe;
+
+        // Verifica que el curso no esté agregado ya
         if(cursos[0]){
             cursosAgregados.forEach(element => {
                 if(element.id == cursos[0].id){
@@ -126,10 +133,11 @@
                     return;
                 }
             })
-
+            // si el curso ya está agregado, termina la función
             if(existe) return;
+
+            // Agrega el curso a la lista y reinicia el buscador
             cursosAgregados = [...cursosAgregados, cursos[0]];
-            const buscador = document.getElementById("busquedaCursos")
             buscador.value = "";
 
         } else {
@@ -162,11 +170,11 @@
 
             <div id="buscador" class="mb-5">
                 <label for="busquedaCursos">Agregar cursos: 
-                    <input list="cursos"
+                    <input bind:this={buscador} list="cursos"
                     id="busquedaCursos" 
                     placeholder="Buscar un curso..." 
                     on:input={handleInput}/>
-                    <datalist id="cursos">
+                    <datalist bind:this={resultadosBusqueda} id="cursos">
                         
                     </datalist>
                 </label>

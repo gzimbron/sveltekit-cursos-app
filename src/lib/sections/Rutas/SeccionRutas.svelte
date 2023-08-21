@@ -7,6 +7,7 @@
 
     async function eliminarRuta(e){
 
+        // Lanza una alerta de confirmación
         Alerta.customQuestion('¿Desea eliminar esta ruta?')
         .then((result) => {
             if(result.isConfirmed){
@@ -15,6 +16,7 @@
         })
     }
 
+    
     async function consulta(id){
         const response = await fetch('/api/eliminarRuta', {
             method: 'POST',

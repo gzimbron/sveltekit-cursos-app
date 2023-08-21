@@ -1,3 +1,5 @@
+// Recibe un ID del usuario a eliminar y envía la petición a la API para eliminarlo.
+
 import { error, json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 

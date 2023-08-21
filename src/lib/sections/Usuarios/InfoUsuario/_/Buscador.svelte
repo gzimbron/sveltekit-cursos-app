@@ -1,3 +1,6 @@
+<!-- Este elemento es el buscador para asignarle un curso a un usuario -->
+<!-- Funciona similar a el buscador de FormularioRuta -->
+
 <script>
 	import { createEventDispatcher } from "svelte";
 
@@ -34,6 +37,8 @@ async function handleInput(e){
 
     }
 
+    // Al presionar el botón el elemento lanza un evento a Cursos con el curso para que 
+    // lo agregue a la base de datos
     async function agregarCurso() {
         const curso = cursos[0];     
 
@@ -44,7 +49,6 @@ async function handleInput(e){
     }
 
 </script>
-
 
 <div class="bg-blue-400 w-fit mx-auto my-5 py-7 px-20 rounded-lg">
 

@@ -1,4 +1,5 @@
-import { json } from '@sveltejs/kit';
+// Obtiene la URL de la imagen de verificación de un usuario-curso para mostrarla en pantalla.
+
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

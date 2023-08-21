@@ -7,28 +7,34 @@
 	import ImagenEvidencia from '$components/ImagenEvidencia.svelte';
 	import Alerta from '$core/classes/Alerta';
 
+	// Información del curso usuario
 	export let usuarioCurso;
+	// Información del curso asignado
     let curso = usuarioCurso.attributes.curso.data.attributes;
 	let btnVisible = true;
 	let textoBtn;
 	let loading = false;
 	let unsuscribe;
 
+	// Cuando el valor de imagenURL cambie desde FormVerificacion, ejecuta la función
 	unsuscribe = imagenURL.subscribe((value) => {
 		if(value != null) usuarioCurso.attributes.verificacion = value;
 	});
 
 	$: if(usuarioCurso.attributes.terminado && !usuarioCurso.attributes.verificacion){
-
+			// Si el curso está terminado pero no hay imagen de verificación
 			textoBtn = "Agregar evidencia";
 		} else if(usuarioCurso.attributes.terminado && usuarioCurso.attributes.verificacion){
+			// Si el curso está terminado y hay imagen de verificación
 			btnVisible = false;
 		} else {
+			// Curso no completado
 			textoBtn = "Marcar como completado"
 		}
 	
 	async function handleClick() {
 
+		// Actualiza el curso a completado si no lo está
 		if(!usuarioCurso.attributes.terminado){
 
 			loading = true;
@@ -55,8 +61,10 @@
 			
 		}
 
+		// Set ID del curso al store para acceder a él desde FormularioCurso
 		cursoId.set(usuarioCurso.id);
 
+		// Mostrar modal para subir evidencia
 		const modalComponent: ModalComponent = {
             ref: FormVerificacion,
         };
@@ -71,6 +79,7 @@
 
 	function mostrarEvidencia(){
 		
+		// Set ID del curso al store para acceder a él desde ImagenEvidencia
 		cursoId.set(usuarioCurso.id);
 		const modalComponent: ModalComponent = {
             ref: ImagenEvidencia,

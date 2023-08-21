@@ -1,3 +1,5 @@
+// Actualiza la información de una ruta mediante el formulario EditarRuta.
+
 import { json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 

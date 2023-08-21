@@ -3,6 +3,8 @@
 	import Alerta from '$core/classes/Alerta';
  
     const formSubmitted = async () => {
+
+    // Después de enviar el formulario
     return async ({ result }) => {
         if(result.type === "success"){
             Alerta.success("¡Curso agregado con éxito!");

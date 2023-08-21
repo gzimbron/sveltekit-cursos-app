@@ -1,3 +1,5 @@
+<!-- Este elemento muestra información del usuario en la tabla de Seccionusuarios -->
+
 <script>
 	import { createEventDispatcher } from "svelte";
 
@@ -8,6 +10,7 @@
 
     async function handleClick(id){
 
+        // Levanta un evento a SeccionUsuarios para que elimine al usuario 
         dispatch('eliminarUsuario', {
             id: id
         });
@@ -15,8 +18,6 @@
     }
 
 </script>
-
-
 
 <tr class="">
     

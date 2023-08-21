@@ -1,4 +1,5 @@
-import { json } from '@sveltejs/kit';
+// Obtiene los elementos usuario-curso asignados a un usuario.
+
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

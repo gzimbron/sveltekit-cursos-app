@@ -1,4 +1,4 @@
-<!-- Elemento curso para la vista del administrador-->
+<!-- Elemento curso para el apartado de usuarios de la vista de administrador -->
 
 <script lang="ts">
 	import { cursoId } from "$core/stores/curso.store";
@@ -12,10 +12,13 @@
 	let btnTexto;
 
 	if(usuarioCurso.attributes.terminado && usuarioCurso.attributes.verificacion){
+		// Si el curso está terminado y hay verificación
 		btnTexto = "Ver evidencia";
 	} else if(usuarioCurso.attributes.terminado && !usuarioCurso.attributes.verificacion){
+		// Si el curso está terminado y no hay verificación
 		btnTexto = "No hay evidencia aún";
 	} else {
+		// Si el curso no está terminado
 		btnVisible = false;
 	}
 
@@ -23,6 +26,7 @@
 
 	async function handleClick(id) {
 
+		// Levanta un evento a Cursos para que quite el curso de la vista y de la BD
 		dispatch('quitarCurso', {
 			id: id
 		})
@@ -31,6 +35,9 @@
 
 	function mostrarEvidencia(){
 		
+		// Abre un modal que muestra la imagen de evidencia
+
+		// Set ID del curso al store para que ImagenEvidencia pueda buscar la imagen
 		cursoId.set(usuarioCurso.id);
 		const modalComponent: ModalComponent = {
             ref: ImagenEvidencia,

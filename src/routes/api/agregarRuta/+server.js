@@ -1,3 +1,6 @@
+// Recibe datos de una nueva ruta del formulario, valida que no estén vacíos los campos y envía la petición
+// a la API para agregar la ruta.
+
 import { error } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 
@@ -8,15 +11,12 @@ export async function POST({ request }) {
 
 	if (data.nombre === '') {
 		return new Response(JSON.stringify({ code: 402, message: 'Debe ingresar un nombre.' }));
-		//throw error(401, 'Debe ingresar un nombre.');
 	}
 	if (data.descripcion === '') {
 		return new Response(JSON.stringify({ code: 402, message: 'Debe ingresar una descripción.' }));
-		//throw error(402, 'Debe ingresar una descripción.');
 	}
 	if (data.cursos.connect.length == 0) {
 		return new Response(JSON.stringify({ code: 402, message: 'Debe agregar cursos a la ruta.' }));
-		//throw error(401, 'Debe agregar cursos a la ruta.');
 	}
 
 	const verificarRuta = await apiFetch({

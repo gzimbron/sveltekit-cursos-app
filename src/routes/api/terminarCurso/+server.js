@@ -1,3 +1,5 @@
+// Modifica el estado del campo "terminado" de un usuario-curso a true cuando se presiona el botón de terminar curso.
+
 import { json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 

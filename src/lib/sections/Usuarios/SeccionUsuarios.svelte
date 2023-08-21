@@ -1,3 +1,5 @@
+<!-- Sección que muestra los usuarios -->
+
 <script>
 	import UsuarioItem from "./_/UsuarioItem.svelte";
     import Alerta from '$core/classes/Alerta';
@@ -15,6 +17,7 @@
         })
     }
 
+    // Elimina un usuario
     async function consulta(id){
 
         const response = await fetch('/api/eliminarUsuario', {

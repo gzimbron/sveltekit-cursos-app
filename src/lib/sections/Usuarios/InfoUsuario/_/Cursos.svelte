@@ -1,3 +1,6 @@
+<!-- Muestra los cursos asignados a un usuario -->
+
+
 <script>
     import Alert from "$components/Alert.svelte";
 	import Alerta from "$core/classes/Alerta";

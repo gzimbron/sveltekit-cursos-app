@@ -1,3 +1,5 @@
+// Actualiza la información de un usuario mediante el formulario EditarUsuario.
+
 import { json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 

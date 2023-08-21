@@ -6,6 +6,7 @@
 
     async function handleEliminar(e){
 
+        // Lanza una ventana de confirmación
         Alerta.customQuestion('¿Desea eliminar este curso?')
         .then((result) => {
             if(result.isConfirmed){
@@ -17,6 +18,7 @@
 
     async function consulta(id){
 
+        // Consulta a la API para eliminar el curso
         const response = await fetch('/api/eliminarCurso', {
 				method: 'POST',
 				body: JSON.stringify(id),

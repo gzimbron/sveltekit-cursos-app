@@ -7,6 +7,8 @@
     let cursos = [];
 
     let loading = true;
+
+    // Carga los cursos de la BD
     cursos = fetch('/api/obtenerCursos', {
         method: 'POST',
         body: JSON.stringify({idUsuario: idUsuario}),

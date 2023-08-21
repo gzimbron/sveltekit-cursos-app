@@ -1,4 +1,5 @@
-import { error } from '@sveltejs/kit';
+// Recibe el URL de la imagen de evidencia subida y lo asigna al elemento usuario-curso correspondiente.
+
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

@@ -1,15 +1,18 @@
 <script>
 	import Alerta from "$core/classes/Alerta";
-	import Curso from "$sections/Usuarios/InfoUsuario/_/Curso.svelte";
 	import RutaCard from "../_/RutaCard.svelte";
-
 
     let resultados;
     let cursos = [];
     let cursosAgregados = [];
+    let resultadosBusqueda;
+    let buscador;
+    let nombre, descripcion;
 
     async function handleInput(e){
-        const resultadosBusqueda = document.getElementById("cursos")
+
+        // Esta función busca en la API cursos cuyo nombre coincida con lo ingresado en el input
+        // y coloca los nombres dentro de un datalist.
         resultadosBusqueda.innerHTML = "";
         const nombreCurso = e.target.value;
 
@@ -26,6 +29,7 @@
         .then(res => res.json())
         .then(res => {
             res.data.forEach(elemento => {
+                // Agrega los resultados a la datalist
                 const opcion = document.createElement("option");
                 opcion.value = elemento.attributes.nombre;
                 resultadosBusqueda.appendChild(opcion);
@@ -40,6 +44,8 @@
     function agregarCurso(e){
 
         let existe;
+
+        // Verifica que el curso no esté agregado ya
         if(cursos[0]){
             
             cursosAgregados.forEach(element => {
@@ -49,9 +55,11 @@
                     return;
                 }
             })
+            // Si el curso está agregado, termina la función
             if(existe) return;
+
+            // Agrega el curso a la lista y reinicia el buscador
             cursosAgregados = [...cursosAgregados, cursos[0]];
-            const buscador = document.getElementById("busquedaCursos")
             buscador.value = "";
 
         } else {
@@ -61,6 +69,7 @@
     }
 
     function eliminarCurso(e){
+        // Elimina el curso de la lista de cursos
         cursosAgregados = cursosAgregados.filter(curso => {
             return curso.id != e.detail.id;
         });
@@ -69,13 +78,16 @@
 
     async function agregarRuta(e){
 
+        // Si no hay cursos en la lista, lanza una alerta
         if(cursosAgregados.length == 0){
             Alerta.error("Agregue cursos a la ruta.")
             return;
         }
         
-        const nombre = document.querySelector("#nombreRuta").value;
-        const descripcion = document.querySelector("#descripcionRuta").value;
+        //const nombre = document.querySelector("#nombreRuta").value;
+        //const descripcion = document.querySelector("#descripcionRuta").value;
+
+        // Asigna el valor de los radio buttons de activo o inactivo
         const radioButtons = document.getElementsByName("estadoRuta");
         let estado;
         for (const button of radioButtons) {
@@ -85,6 +97,7 @@
             }
         }
 
+        // Hace una lista de las IDs de los cursos agregados
         const ids = cursosAgregados.map(curso => curso.id);
         
         const jsonRequest = {
@@ -98,6 +111,7 @@
             }
         }
 
+        // Hace la consulta al endpoint para agregar la ruta
         let response = await fetch('/api/agregarRuta',{
             method: 'POST',
                 headers: {
@@ -119,9 +133,8 @@
             }
             
         } else{
-            Alerta.error(
-                "Hubo un error al agregar la ruta.")
-        }
+            Alerta.error("Hubo un error al agregar la ruta.")
+            }
         
     }
 
@@ -131,9 +144,9 @@
 
     <form action="" class="w-fit mx-auto mb-5" id="nueva-ruta">
 
-        <label for="nombreRuta">Nombre de la ruta: <input type="text" id="nombreRuta" /></label>
+        <label for="nombreRuta">Nombre de la ruta: <input type="text" id="nombreRuta" bind:value={nombre}/></label>
 
-        <label for="descripcionRuta">Descripción de la ruta: <input type="text" id="descripcionRuta" /></label>
+        <label for="descripcionRuta">Descripción de la ruta: <input type="text" id="descripcionRuta" bind:value={descripcion}/></label>
 
         <input type="radio" id="activo" name="estadoRuta" value="1" checked>
         <label for="activo" class="estado">Activo</label>
@@ -143,11 +156,11 @@
 
         <div id="buscador">
             <label for="busquedaCursos">Agregar cursos: 
-                <input list="cursos"
+                <input bind:this={buscador} list="cursos"
                 id="busquedaCursos" 
                 placeholder="Buscar un curso..." 
                 on:input={handleInput}/>
-                <datalist id="cursos">
+                <datalist bind:this={resultadosBusqueda} id="cursos">
                     
                 </datalist>
             </label>
@@ -174,8 +187,6 @@
     
     <button on:click={agregarRuta} class="btn block my-5 mx-auto bg-yellow-400 text-black">Agregar ruta</button>
 </main>
-
-
 
 <style lang="postcss">
 

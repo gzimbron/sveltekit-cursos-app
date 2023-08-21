@@ -39,6 +39,7 @@
 
     async function handleSubmit(){
 
+        // Envía la información a la BD
         loading = true;
         let response = await fetch('/api/updateCurso', {
             method: 'POST',

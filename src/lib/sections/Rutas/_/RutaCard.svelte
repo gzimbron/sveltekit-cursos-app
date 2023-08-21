@@ -1,3 +1,5 @@
+<!-- Elemento que muestra información del curso al agregarlo a una ruta -->
+
 <script>
 	import { createEventDispatcher } from "svelte";
 
@@ -7,6 +9,7 @@
 
     function handleClick(id) {
 
+        // Levanta un evento para que FormularioRuta elimine el  de la lista
         dispatch('eliminarCurso', {
             id: id
         })

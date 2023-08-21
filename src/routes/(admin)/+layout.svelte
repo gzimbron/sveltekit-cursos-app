@@ -10,6 +10,7 @@
 
 	let loading = true;
 
+	// Verifica si hay una sesión iniciada y si el usuario es administrador.
 	const verificarLogin = async () => {
 		try {
 			await getUserLogin();

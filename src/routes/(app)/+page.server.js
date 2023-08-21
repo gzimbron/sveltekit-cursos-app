@@ -3,6 +3,8 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
+
+	// hace el inicio de sesión.
 	default: async ({ request }) => {
 		const data = await request.formData();
 		const email = data.get('email');

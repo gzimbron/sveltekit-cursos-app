@@ -28,7 +28,6 @@ export async function POST({ request }) {
 		return new Response(
 			JSON.stringify({ code: 402, message: 'Ya existe una ruta con ese nombre.' })
 		);
-		//throw error(402, 'El correo ya está registrado.');
 	}
 
 	const req = {

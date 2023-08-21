@@ -9,6 +9,7 @@
 
     let loading = true;
 
+	// Verifica que haya una sesión iniciada.
 	const verificarLogin = async () => {
 		try {
 			await getUserLogin();

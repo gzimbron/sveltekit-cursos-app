@@ -1,6 +1,6 @@
 <script>
 
-	import { Toast, toastStore } from '@skeletonlabs/skeleton';
+	import { Toast } from '@skeletonlabs/skeleton';
 
 	// The ordering of these imports is critical to your app working properly
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';

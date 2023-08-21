@@ -1,7 +1,5 @@
 // Crea un nuevo elemento usuario-curso con la ID del usuario al que se le asignará y el ID del curso.
 
-// Falta manejo de error
-
 import { json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 
@@ -25,7 +23,12 @@ export async function POST({ request }) {
 		body: jsonrequest
 	};
 
-	const result = await apiFetch(req);
+	try{
+		const result = await apiFetch(req);
+		return json(result);
+	}
+	catch{
+		throw new Error('Error al agregar la ruta.');
+	}
 
-	return json(result);
 }

@@ -39,18 +39,22 @@
             method: 'post',
             body: JSON.stringify({id: id, url: url})
         })
-        response = await response.json();
-        
-        // Verifica que no haya error
-        if(response.data){
-            loading = false;
-            // Setea la URL para poder acceder a ella en el componente UsuarioCurso
-            imagenURL.set(url);
+        loading = false;
+        if(!response.ok){
             modalStore.close();
-            Alerta.success("Se agregó la evidencia exitosamente.")
+            Alerta.error("Hubo un error al agregar la evidencia.")
         } else {
-            modalStore.close();
-            Alerta.error(response.message)
+            response = await response.json();
+            // Verifica que no haya error
+            if(response.data){
+                // Setea la URL para poder acceder a ella en el componente UsuarioCurso
+                imagenURL.set(url);
+                modalStore.close();
+                Alerta.success("Se agregó la evidencia exitosamente.")
+            } else {
+                modalStore.close();
+                Alerta.error(response.message)
+            }
         }
         
     }

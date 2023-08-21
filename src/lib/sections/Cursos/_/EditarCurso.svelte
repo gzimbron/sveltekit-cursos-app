@@ -57,6 +57,12 @@
             modalStore.close();
             Alerta.error("Hubo un error al actualizar la información del curso.")
             return;
+        }else{
+            response = await response.json();
+            if(response.error){
+                Alerta.error(response.message);
+                return;
+            }
         }
         location.reload();
 

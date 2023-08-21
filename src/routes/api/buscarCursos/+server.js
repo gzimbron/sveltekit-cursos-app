@@ -14,7 +14,12 @@ export async function POST({ request }) {
 		method: 'GET'
 	};
 
-	const result = await apiFetch(req);
+	try{
+		const result = await apiFetch(req);
+		return new Response(JSON.stringify(result));
+	}
+	catch{
+		throw new Error('Error al obtener los cursos.');
+	}
 
-	return new Response(JSON.stringify(result));
 }

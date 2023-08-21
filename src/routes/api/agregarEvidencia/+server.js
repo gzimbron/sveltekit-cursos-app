@@ -6,6 +6,10 @@ import { apiFetch } from '$core/functions/apiFetch';
 export async function POST({ request }) {
 	const { id, url } = await request.json();
 
+	if(url === ""){
+		return new Response(JSON.stringify({error: 401, message: "URL Inválida"}))
+	}
+
 	const body = {
 		data: {
 			verificacion: url

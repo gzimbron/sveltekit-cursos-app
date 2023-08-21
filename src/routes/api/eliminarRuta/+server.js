@@ -13,7 +13,12 @@ export async function POST({ request }) {
 		method: 'DELETE'
 	};
 
-	const result = await apiFetch(req);
+	try{
+		const result = await apiFetch(req);
+		return new Response(JSON.stringify(result));
+	}
+	catch{
+		throw new Error('Error al eliminar la ruta.');
+	}
 
-	return json(result);
 }

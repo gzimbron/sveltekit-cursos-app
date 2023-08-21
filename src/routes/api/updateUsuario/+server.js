@@ -7,6 +7,10 @@ import { apiFetch } from '$core/functions/apiFetch';
 export async function POST({ request }) {
 	const { nombre, email, provider, admin, id } = await request.json();
 
+	if(nombre === ""|| email === ""|| provider === ""){
+		return new Response(JSON.stringify({error: 401, message: "No pueden haber campos vacíos."}))
+	}
+
 	const req = {
 		endPoint: `usuarios/${id}`,
 		method: 'PUT',

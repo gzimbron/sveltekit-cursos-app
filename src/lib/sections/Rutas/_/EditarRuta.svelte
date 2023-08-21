@@ -48,6 +48,10 @@
             Alerta.error("Agregue cursos a la ruta.")
             return;
         }
+        if(nombre === "" || descripcion === ""){
+            Alerta.error("No pueden haber campos vacíos.");
+            return;
+        }
 
         // Crea una lista con las IDs de los cursos asignados
         const ids = cursosAgregados.map(curso => curso.id);

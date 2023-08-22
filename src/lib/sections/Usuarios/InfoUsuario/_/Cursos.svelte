@@ -1,8 +1,7 @@
 <!-- Muestra los cursos asignados a un usuario -->
 
-
 <script>
-    import Alert from "$components/Alert.svelte";
+
 	import Alerta from "$core/classes/Alerta";
 	import Buscador from "./Buscador.svelte";
 	import Curso from "./Curso.svelte";
@@ -10,8 +9,6 @@
     export let usuarioCursos = [];
     export let idUsuario;
     let agregarCurso;
-    let visible;
-    let idEliminar;
 
     function abrirBuscador(){
         agregarCurso = !agregarCurso;
@@ -48,8 +45,8 @@
 
     }
 
-    async function aceptar(){
-        visible = false;
+    async function consulta(idEliminar){ 
+        //visible = false;
 
 		const response = await fetch('/api/quitarCurso', {
 			method: 'POST',
@@ -70,13 +67,15 @@
 
 	}
 
-    function cancelar(){
-        visible = false;
-    }
-
     function quitarCurso(e){
-        visible = true;
-        idEliminar = e.detail.id;
+
+        // Lanza una alerta de confirmación
+        Alerta.customQuestion('¿Desea quitar este curso?')
+        .then((result) => {
+            if(result.isConfirmed){
+                consulta(e.detail.id);
+            }
+        })
     }
 
 </script>
@@ -87,12 +86,6 @@
 
     {#if agregarCurso}
         <Buscador on:cursoAgregado={asignarCurso}/>
-    {/if}
-
-    {#if visible}
-        <Alert mensaje="¿Desea quitar este curso?"
-        on:aceptar={aceptar}
-        on:cancelar={cancelar}/>
     {/if}
 
     <div class="listado-cursos">

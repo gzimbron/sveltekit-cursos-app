@@ -1,8 +1,5 @@
 // Reibe el ID de la ruta a eliminar y envía la petición a la API para eliminarla.
 
-// Falta manejo de error
-
-import { json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

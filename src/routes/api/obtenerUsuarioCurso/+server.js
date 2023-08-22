@@ -1,7 +1,5 @@
 // Obtiene un ID de un usuario-curso para buscarlo en la BD y retornar su información.
 
-// Falta manejo de error
-
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

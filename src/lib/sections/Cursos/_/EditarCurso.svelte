@@ -61,6 +61,7 @@
             response = await response.json();
             if(response.error){
                 Alerta.error(response.message);
+                loading = false;
                 return;
             }
         }

@@ -1,8 +1,5 @@
 // Quita un curso de un usuario eliminando el elemento usuario-curso correspondiente mediante su ID.
 
-// Falta manejo de error
-
-import { json } from '@sveltejs/kit';
 import { apiFetch } from '$core/functions/apiFetch';
 
 /** @type {import('./$types').RequestHandler} */

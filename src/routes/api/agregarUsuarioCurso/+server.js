@@ -17,18 +17,26 @@ export async function POST({ request }) {
 		}
 	};
 
-	const req = {
+	let req = {
 		endPoint: 'usuario-cursos',
 		method: 'POST',
 		body: jsonrequest
 	};
 
 	try{
-		const result = await apiFetch(req);
+		let result = await apiFetch(req);
+		
+		const id = result.data.id;
+		result = await apiFetch({
+			endPoint: `usuario-cursos/${id}?populate=*`,
+			method: 'GET'
+		});
 		return json(result);
 	}
 	catch{
-		throw new Error('Error al agregar la ruta.');
+		throw new Error('Error al asignar el curso.');
 	}
+
+	
 
 }

@@ -40,8 +40,12 @@
             Alerta.error("Algo salió mal al asignar el curso.")
         }
 
+        const cursoReturn = await response.json();
+
+        usuarioCursos = [...usuarioCursos, cursoReturn.data];
+
         document.getElementById("busquedaCursos").value = "";
-        location.reload();
+        
 
     }
 

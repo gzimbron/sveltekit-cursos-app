@@ -1,11 +1,15 @@
 <script lang="ts">
 	import Cursos from "./_/Cursos.svelte";
     import { modalStore, type ModalComponent, type ModalSettings } from "@skeletonlabs/skeleton";
+    import { TabGroup, Tab } from "@skeletonlabs/skeleton";
 	import EditarUsuario from "./_/EditarUsuario.svelte";
     import { userId } from "$core/stores/user.store";
+	import Rutas from "./_/Rutas.svelte";
 
     export let usuario;
     export let usuarioCursos = [];
+    export let usuarioRutas = [];
+    let tabSet = 0;
 
     function abrirFormulario(){
         userId.set(usuario.id);
@@ -45,7 +49,23 @@
         <button class="w-full btn variant-filled-warning mt-5" on:click={abrirFormulario}>Editar usuario</button>
     </div>
 
-    <Cursos usuarioCursos={usuarioCursos} idUsuario={usuario.id}/>
+    <TabGroup justify="justify-center">
+        <Tab bind:group={tabSet} name="cursos" value={0}>
+            <span>Cursos</span>
+        </Tab>
+        <Tab bind:group={tabSet} name="rutas" value={1}>
+            <span>Rutas</span>
+        </Tab>
+        <svelte:fragment slot="panel">
+            {#if tabSet === 0}
+                <Cursos usuarioCursos={usuarioCursos} idUsuario={usuario.id}/>
+            {:else if tabSet === 1}
+                <Rutas usuarioRutas={usuarioRutas} idUsuario={usuario.id}/>
+            {/if}
+        </svelte:fragment>
+    </TabGroup>
+
+    
 
 </main>
 

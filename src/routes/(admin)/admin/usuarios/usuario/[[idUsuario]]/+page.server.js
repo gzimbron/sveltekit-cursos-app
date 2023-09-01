@@ -17,5 +17,12 @@ export async function load({ params }) {
 
 	const usuarioCursos = data.data;
 
-	return { usuario, usuarioCursos };
+	data = await apiFetch({
+		endPoint: `usuario-rutas?filters[idUsuario][$eq]=${idUsuario}&populate=*`,
+		method: 'GET'
+	})
+
+	const usuarioRutas = data.data;
+
+	return { usuario, usuarioCursos, usuarioRutas };
 }

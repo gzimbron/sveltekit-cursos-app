@@ -74,7 +74,8 @@
 					Completado
 				{:else}
 					Incompleto
-				{/if}</small>
+				{/if}
+			</small>
 		</div>
 		<a class="block" href={curso.cursoURL}>Ir al curso</a>
 	</footer>

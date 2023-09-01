@@ -29,13 +29,13 @@
 
         if(response.ok){
             
-            Alerta.success("¡Usuario eliminado con éxito!");
+            Alerta.success("¡Curso eliminado con éxito!");
             cursos = cursos.filter(item => {
                 return item.id != id;
             })
         } else {
 
-            Alerta.error("Hubo un error al eliminar el usuario.")
+            Alerta.error("Hubo un error al eliminar el curso.")
 
         }
     }

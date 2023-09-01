@@ -6,7 +6,6 @@ import { apiFetch } from '$core/functions/apiFetch';
 export async function POST({ request }) {
 	const body = await request.json();
 	const { idUsuario } = body;
-	console.log(idUsuario);
 	const req = {
 		endPoint: `usuario-cursos?filters[idUsuario][$eq]=${idUsuario}&populate=*`,
 		method: 'GET'

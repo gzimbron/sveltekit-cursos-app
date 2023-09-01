@@ -1,5 +1,5 @@
-// Recibe un string del elemento Buscador, consulta a la API por cursos cuyo nombre
-// contenga esa string y los retorna.
+// Recibe un string del elemento Buscador, consulta a la API por rutas cuyo nombre
+// contenga esa string y las retorna.
 
 import { apiFetch } from '$core/functions/apiFetch';
 
@@ -7,7 +7,7 @@ import { apiFetch } from '$core/functions/apiFetch';
 export async function POST({ request }) {
 	const { nombre } = await request.json();
 	const req = {
-		endPoint: `cursos?filters[nombre][$containsi]=${nombre}`,
+		endPoint: `rutas?filters[nombre][$containsi]=${nombre}`,
 		method: 'GET'
 	};
 

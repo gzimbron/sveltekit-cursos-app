@@ -1,26 +1,25 @@
-<!-- Muestra los cursos asignados a un usuario -->
+<!-- Muestra las rutas asignadas a un usuario -->
 
 <script>
 
 	import Alerta from "$core/classes/Alerta";
 	import Buscador from "./Buscador.svelte";
-	import Curso from "./Curso.svelte";
+	import Ruta from "./Ruta.svelte";
 
-    export let usuarioCursos = [];
-    //export let usuarioRutas = [];
+    export let usuarioRutas = [];
     export let idUsuario;
-    let agregarCurso;
-    //let agregarRuta;
+    //let agregarCurso;
+    let agregarRuta;
 
-    function abrirBuscadorCurso(){
+    /*function abrirBuscadorCurso(){
         agregarCurso = !agregarCurso;
-    }
-
-    /*function abrirBuscadorRuta(){
-        agregarRuta = !agregarRuta;
     }*/
 
-    async function asignarCurso(e){
+    function abrirBuscadorRuta(){
+        agregarRuta = !agregarRuta;
+    }
+
+    /*async function asignarCurso(e){
         let existe;
         const curso = e.detail.objeto;
 
@@ -53,9 +52,9 @@
         document.getElementById("busquedaCursos").value = "";
         
 
-    }
+    }*/
 
-    /*async function asignarRuta(e){
+    async function asignarRuta(e){
         let existe;
         const ruta = e.detail.objeto;
         
@@ -81,18 +80,17 @@
             Alerta.error("Algo salió mal al asignar la ruta.")
         }
 
-        //const rutaReturn = await response.json();
+        const rutaReturn = await response.json();
 
-        //usuarioRutas = [...usuarioRutas, rutaReturn.data];
+        usuarioRutas = [...usuarioRutas, rutaReturn.data];
 
         document.getElementById("busquedaRutas").value = "";
-        
+    
+    }
 
-    }*/
+    async function quitarRuta(idEliminar){ 
 
-    async function quitarCurso(idEliminar){ 
-
-		const response = await fetch('/api/quitarCurso', {
+		const response = await fetch('/api/quitarRuta', {
 			method: 'POST',
 			body: JSON.stringify(idEliminar),
 			headers: {
@@ -101,12 +99,12 @@
 		});
             
         if(response.ok){
-            Alerta.success("¡Curso eliminado con éxito!");
-            usuarioCursos = usuarioCursos.filter(item => {
+            Alerta.success("¡Ruta eliminada con éxito!");
+            usuarioRutas = usuarioRutas.filter(item => {
                 return item.id != idEliminar;
             })
         } else{
-            Alerta.error("Hubo un error al eliminar el curso.")
+            Alerta.error("Hubo un error al eliminar la ruta.")
         }
 
 	}
@@ -117,34 +115,37 @@
         Alerta.customQuestion('¿Desea quitar este curso?')
         .then((result) => {
             if(result.isConfirmed){
-                quitarCurso(e.detail.id);
+                quitarRuta(e.detail.id);
             }
         })
+
     }
 
 </script>
 
 <div class="cursos"> 
 
-    <button class="btn variant-filled-tertiary block w-fit mx-auto my-5" on:click={abrirBuscadorCurso}>{agregarCurso ? "Cerrar" : "Agregar curso"}</button>
+    <!--<button class="btn variant-filled-tertiary block w-fit mx-auto my-5" on:click={abrirBuscadorCurso}>{agregarCurso ? "Cerrar" : "Agregar curso"}</button>
 
     {#if agregarCurso}
         <Buscador endpoint={"Cursos"} on:agregado={asignarCurso}/>
-    {/if}
+    {/if}-->
 
-    <!--<button class="btn variant-filled-secondary block w-fit mx-auto my-5" on:click={abrirBuscadorRuta}>{agregarRuta ? "Cerrar" : "Agregar ruta"}</button>
+    <button class="btn variant-filled-secondary block w-fit mx-auto my-5" on:click={abrirBuscadorRuta}>{agregarRuta ? "Cerrar" : "Agregar ruta"}</button>
 
     {#if agregarRuta}
         <Buscador endpoint={"Rutas"} on:agregado={asignarRuta}/>
-        <p>Rutas</p>
-    {/if}-->
+    {/if}
 
     <div class="listado-cursos">
 
-        {#key usuarioCursos}
-            {#each usuarioCursos as usuarioCurso}
-                <Curso usuarioCurso={usuarioCurso} on:quitarCurso={confirmacion}/>
+        {#key usuarioRutas}
+            {#each usuarioRutas as usuarioRuta}
+                <Ruta usuarioRuta={usuarioRuta} on:quitarRuta={confirmacion}/>
+            {:else}    
+                <p>No hay rutas asignadas.</p>
             {/each}
+            
         {/key}
         
     </div>

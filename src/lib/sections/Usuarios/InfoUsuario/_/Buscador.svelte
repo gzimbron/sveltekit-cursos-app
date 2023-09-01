@@ -1,25 +1,27 @@
-<!-- Este elemento es el buscador para asignarle un curso a un usuario -->
+<!-- Este elemento es el buscador para asignarle un curso o una ruta a un usuario -->
+<!-- Recibe una variable que indica cuál endpoint utilizar -->
 <!-- Funciona similar a el buscador de FormularioRuta -->
 
 <script>
 	import { createEventDispatcher } from "svelte";
 
+    export let endpoint;
     let resultados;
-    let cursos = [];
-    const dispatch = createEventDispatcher();
+    let objetos = [];
+    const dispatch = createEventDispatcher(); 
 
-async function handleInput(e){
-        const resultadosBusqueda = document.getElementById("cursos")
+async function handleInput(e){        
+        const resultadosBusqueda = endpoint === "Cursos" ? document.getElementById("resultadosCursos") : document.getElementById("resultadosRutas");
         resultadosBusqueda.innerHTML = "";
-        const nombreCurso = e.target.value;
+        const nombre = e.target.value;
 
-        resultados = await fetch('/api/buscarCursos', {
+        resultados = await fetch(`/api/buscar${endpoint}`, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                nombreCurso: nombreCurso
+                nombre: nombre
             })
             
         })
@@ -31,7 +33,7 @@ async function handleInput(e){
                 resultadosBusqueda.appendChild(opcion);
             });
 
-            cursos = res.data;
+            objetos = res.data;
 
         })
 
@@ -39,11 +41,11 @@ async function handleInput(e){
 
     // Al presionar el botón el elemento lanza un evento a Cursos con el curso para que 
     // lo agregue a la base de datos
-    async function agregarCurso() {
-        const curso = cursos[0];     
+    async function agregar() {
+        const objeto = objetos[0]; 
 
-        dispatch('cursoAgregado', {
-            curso: curso
+        dispatch('agregado', {
+            objeto: objeto
         })
             
     }
@@ -55,17 +57,38 @@ async function handleInput(e){
     <form action="">
 
         <div id="buscador" class="w-fit mx-auto">
-            <label for="busquedaCursos" class="mb-5 text-black">Agregar cursos: 
-                <input list="cursos"
-                id="busquedaCursos" 
-                placeholder="Buscar un curso..." 
-                on:input={handleInput} class="text-black"/>
-                <datalist id="cursos">
-                    
-                </datalist>
-            </label>
 
-            <button on:click={agregarCurso} class="btn variant-filled-secondary block w-fit mx-auto ">Agregar curso</button>
+            {#if endpoint === "Cursos"}
+            
+                <label for="busquedaCursos" class="mb-5 text-black">Agregar cursos: 
+                    <input list="resultadosCursos"
+                    id="busquedaCursos" 
+                    placeholder="Buscar un curso..." 
+                    on:input={handleInput} class="text-black"/>
+                    <datalist id="resultadosCursos">
+                        
+                    </datalist>
+                </label>
+
+            {:else}
+                
+                <label for="busquedaRutas" class="mb-5 text-black">Agregar rutas: 
+                    <input list="resultadosRutas"
+                    id="busquedaRutas" 
+                    placeholder="Buscar una ruta..." 
+                    on:input={handleInput} class="text-black"/>
+                    <datalist id="resultadosRutas">
+                        
+                    </datalist>
+                </label>
+
+            {/if}
+
+            
+
+            <button on:click={agregar} class="btn variant-filled-secondary block w-fit mx-auto ">
+                {endpoint === "Cursos"? "Agregar curso" : "Agregar ruta"}
+            </button>
 
         </div>
 

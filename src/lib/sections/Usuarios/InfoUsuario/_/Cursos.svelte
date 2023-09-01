@@ -3,22 +3,34 @@
 <script>
 
 	import Alerta from "$core/classes/Alerta";
+	import { onMount } from "svelte";
 	import Buscador from "./Buscador.svelte";
 	import Curso from "./Curso.svelte";
+	import Loading from "$components/Loading.svelte";
 
-    export let usuarioCursos = [];
-    //export let usuarioRutas = [];
     export let idUsuario;
     let agregarCurso;
-    //let agregarRuta;
+    let usuarioCursos = [];
+    let loading = false;
+
+    onMount(obtenerUsuarioCursos);
+
+    async function obtenerUsuarioCursos(){
+        loading = true;
+        let cursos = await fetch('/api/obtenerUsuarioCursos', {
+            method: 'POST',
+            body: JSON.stringify(idUsuario),
+            headers: {'content-type': 'application/json'}
+        })
+        cursos = await cursos.json();
+        console.log(cursos)
+        usuarioCursos = cursos;
+        loading = false;
+    }
 
     function abrirBuscadorCurso(){
         agregarCurso = !agregarCurso;
     }
-
-    /*function abrirBuscadorRuta(){
-        agregarRuta = !agregarRuta;
-    }*/
 
     async function asignarCurso(e){
         let existe;
@@ -54,41 +66,6 @@
         
 
     }
-
-    /*async function asignarRuta(e){
-        let existe;
-        const ruta = e.detail.objeto;
-        
-        usuarioRutas.forEach(element => {
-            const rutaId = element.attributes.ruta.data.id;
-            if(rutaId === ruta.id){
-                existe = true;
-                Alerta.error("Esta ruta ya está asignada");
-                return
-            }
-        })
-        if(existe) return;
-
-        let response = await fetch("/api/agregarUsuarioRuta", {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({idUsuario: idUsuario, idRuta: ruta.id})
-        })
-
-        if(response.ok){
-            Alerta.success("Se asignó la ruta con éxito.")
-        } else {
-            Alerta.error("Algo salió mal al asignar la ruta.")
-        }
-
-        //const rutaReturn = await response.json();
-
-        //usuarioRutas = [...usuarioRutas, rutaReturn.data];
-
-        document.getElementById("busquedaRutas").value = "";
-        
-
-    }*/
 
     async function quitarCurso(idEliminar){ 
 
@@ -132,22 +109,22 @@
         <Buscador endpoint={"Cursos"} on:agregado={asignarCurso}/>
     {/if}
 
-    <!--<button class="btn variant-filled-secondary block w-fit mx-auto my-5" on:click={abrirBuscadorRuta}>{agregarRuta ? "Cerrar" : "Agregar ruta"}</button>
+    {#if loading}
+        <Loading />
+    {:else}
 
-    {#if agregarRuta}
-        <Buscador endpoint={"Rutas"} on:agregado={asignarRuta}/>
-        <p>Rutas</p>
-    {/if}-->
+        <div class="listado-cursos">
 
-    <div class="listado-cursos">
+            {#key usuarioCursos}
+                {#each usuarioCursos as usuarioCurso}
+                    <Curso usuarioCurso={usuarioCurso} on:quitarCurso={confirmacion}/>
+                {/each}
+            {/key}
+            
+        </div>
 
-        {#key usuarioCursos}
-            {#each usuarioCursos as usuarioCurso}
-                <Curso usuarioCurso={usuarioCurso} on:quitarCurso={confirmacion}/>
-            {/each}
-        {/key}
-        
-    </div>
+    {/if}
+
 </div>
 
 <style lang="postcss">

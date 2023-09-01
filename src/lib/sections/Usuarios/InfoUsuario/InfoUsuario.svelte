@@ -7,8 +7,6 @@
 	import Rutas from "./_/Rutas.svelte";
 
     export let usuario;
-    export let usuarioCursos = [];
-    export let usuarioRutas = [];
     let tabSet = 0;
 
     function abrirFormulario(){
@@ -58,9 +56,9 @@
         </Tab>
         <svelte:fragment slot="panel">
             {#if tabSet === 0}
-                <Cursos usuarioCursos={usuarioCursos} idUsuario={usuario.id}/>
+                <Cursos idUsuario={usuario.id}/>
             {:else if tabSet === 1}
-                <Rutas usuarioRutas={usuarioRutas} idUsuario={usuario.id}/>
+                <Rutas idUsuario={usuario.id}/>
             {/if}
         </svelte:fragment>
     </TabGroup>

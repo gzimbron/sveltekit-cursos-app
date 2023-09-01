@@ -10,4 +10,4 @@
     <title>Usuario: {data.usuario.attributes.nombre}</title>
 </svelte:head>
 
-<InfoUsuario usuario={data.usuario} usuarioCursos={data.usuarioCursos} usuarioRutas={data.usuarioRutas}/>
+<InfoUsuario usuario={data.usuario} />
